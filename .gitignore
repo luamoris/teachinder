@@ -1,0 +1,8 @@
+# Ignore folders
+/node_modules
+/build
+/dist
+/.idea
+
+# Ignore files
+stats.json

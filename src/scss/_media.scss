@@ -1,0 +1,84 @@
+
+/* ==================================================================== MAX 1440px */
+
+@media (max-width: 1440px) {
+	.content__body {
+		padding:
+			calc(20px + (40 - 20) * ((100vw - 1024px) / (1440 - 1024)))
+			calc(10px + (100 - 10) * ((100vw - 1024px) / (1440 - 1024)))
+			calc(20px + (50 - 20) * ((100vw - 1024px) / (1440 - 1024)));
+	}
+
+	.teachers__list {
+		gap:
+			40px
+			calc(0px + (40 - 0) * ((100vw - 1024px) / (1440 - 1024)));
+	}
+
+	.slider {
+		&__body {
+			.teachers__list {
+				grid-template-columns: repeat(4, minmax(180px, 1fr));
+
+				.teachers__item:nth-child(5) {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+/* ==================================================================== MAX 1024px */
+
+@media (max-width: 1024px) {
+	.content__body {
+		padding: 20px 10px;
+		box-shadow: none;
+	}
+
+	.teachers__list {
+		gap: 40px 0;
+	}
+
+	.slider {
+		&__body {
+			.teachers__list {
+				grid-template-columns: repeat(3, minmax(180px, 1fr));
+
+				.teachers__item:nth-child(4) {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+/* ==================================================================== MAX 1020px */
+
+@media (max-width: 1020px) {
+	.dialog {
+		backdrop-filter: none;
+
+		&__body {
+			padding: 0;
+			background-color: #fff;
+		}
+	}
+
+	.modal {
+		margin: 0;
+		border: none;
+		width: 100%;
+	}
+
+	.infocard {
+		width: 100%;
+		min-height: 100vh;
+	}
+
+	.form {
+		&__body {
+			width: 400px;
+		}
+	}
+}

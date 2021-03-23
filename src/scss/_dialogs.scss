@@ -1,0 +1,200 @@
+
+body._dialog {
+	overflow: hidden;
+}
+
+.dialog {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 20;
+	display: none;
+	overflow: hidden;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+
+	&__body {
+		position: relative;
+		display: flex;
+		overflow-x: auto;
+		padding: 50px;
+		width: 100%;
+	}
+}
+
+.modal {
+	margin: auto;
+	border: 2px solid var(--secondary-сolor);
+	background-color: #fff;
+}
+
+.form {
+	@include flexbox(flex-start, center, column);
+
+	position: relative;
+	z-index: 101;
+	padding: 10px 80px 50px;
+
+	&__body {
+		width: 300px;
+	}
+
+	.form__title {
+		display: block;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+
+	.form__button {
+		width: 100%;
+		height: 60px;
+		font-size: 32px;
+	}
+
+	.form__item {
+		margin: 0 0 20px;
+		width: 100%;
+
+		.form__label {
+			display: block;
+			float: left;
+			margin: 0 0 5px;
+			font-size: 16px;
+			text-align: start;
+		}
+
+		.form__input, #formCountry {
+			padding: 0 15px;
+			width: 100%;
+			height: 35px;
+			font-size: 16px;
+		}
+
+		input[name="age"], select[name="country"], input[name="color"] {
+			cursor: pointer;
+		}
+
+		.options {
+			display: inline-flex;
+
+			.options__item label, .options__item input {
+				cursor: pointer;
+			}
+
+			.options__item:first-child {
+				margin-right: 5px;
+			}
+		}
+
+		._out {
+			@include flexbox(flex-end, center);
+
+			.color__input {
+				margin-left: 8px;
+			}
+		}
+
+		&._flex {
+			@include flexbox(space-between, center);
+		}
+	}
+}
+
+.infocard {
+	position: relative;
+	padding: 40px 80px 30px;
+	width: 900px;
+	min-width: 768px;
+
+	&__content {
+		width: 100%;
+	}
+
+	.form__title {
+		display: block;
+		margin: 0 0 30px;
+		text-align: center;
+	}
+
+	.comment__out {
+		width: 100%;
+	}
+
+	.map {
+		width: 100%;
+		text-align: start;
+
+		a {
+			float: left;
+			border-bottom: 1px dashed var(--link);
+			text-decoration: none;
+			color: var(--link);
+		}
+	}
+
+	&__body {
+		@include flexbox(flex-start, center);
+
+		margin-bottom: 20px;
+	}
+}
+
+.person {
+	@include flexbox(flex-start, flex-start, column);
+
+	position: relative;
+	margin-left: 40px;
+	width: 380px;
+	height: 320px;
+	color: var(--secondary-сolor);
+
+	&::after {
+		content: "";
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 38px;
+		height: 38px;
+		background-image: url("../img/star_border.svg");
+		cursor: pointer;
+	}
+
+	.person__item {
+		margin-bottom: 20px;
+		width: 100%;
+		font-size: 16px;
+		text-align: start;
+
+		.person__fullname {
+			font-size: 36px;
+		}
+
+		.person__mobile, .person__email {
+			display: block;
+		}
+
+		.person__email {
+			display: block;
+			margin-bottom: 20px;
+			text-align: start;
+			text-decoration: none;
+			color: var(--link);
+		}
+
+		.person__mobile {
+			text-align: start;
+		}
+
+		&:first-child {
+			margin-bottom: 40px;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
