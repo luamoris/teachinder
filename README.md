@@ -1,5 +1,10 @@
 [![Logo Template][logo]][github]
 
+### Links
+
+> + [Source code on GitHub][solution-repository]
+> + [Live Site][deploy]
+
 # Prerequisites 
 `Node.js (^10.12.0, or >=12.0.0)`
 
@@ -55,3 +60,6 @@
 
 [logo]: https://raw.githubusercontent.com/luamoris/template/634e93615165ca5dcbc2fc80a3562b116e01262f/src/img/box.svg
 [github]: https://github.com/luamoris/template
+
+[solution-repository]: https://github.com/luamoris/teachinder
+[deploy]: https://luamoris.github.io/teachinder/
