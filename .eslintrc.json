@@ -30,12 +30,14 @@
 			2,
 			"tab"
 		],
-		"quotes": ["double", "single"],
+		"quotes": 0,
 		"linebreak-style": 0,
 		"no-plusplus": 0,
 		"no-confusing-arrow": 0,
 		"no-unused-expressions": 0,
 		"no-param-reassign": 0,
-		"no-restricted-syntax": 0
+		"no-restricted-syntax": 0,
+		"no-nested-ternary": 0,
+		"no-bitwise": 0
 	}
 }
