@@ -16,7 +16,8 @@
 				"allow": [
 					"warn",
 					"error",
-					"log"
+					"log",
+					"assert"
 				]
 			}
 		],
@@ -37,7 +38,6 @@
 		"no-unused-expressions": 0,
 		"no-param-reassign": 0,
 		"no-restricted-syntax": 0,
-		"no-nested-ternary": 0,
-		"no-bitwise": 0
+		"no-nested-ternary": 0
 	}
 }
