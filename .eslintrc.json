@@ -30,6 +30,7 @@
 			2,
 			"tab"
 		],
+		"quotes": ["double", "single"],
 		"linebreak-style": 0,
 		"no-plusplus": 0,
 		"no-confusing-arrow": 0,
