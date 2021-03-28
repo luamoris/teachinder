@@ -58,8 +58,8 @@
 [stylelint]: https://stylelint.io/
 [eslint]: https://eslint.org/
 
-[logo]: https://raw.githubusercontent.com/luamoris/template/634e93615165ca5dcbc2fc80a3562b116e01262f/src/img/box.svg
-[github]: https://github.com/luamoris/template
+[logo]: https://raw.githubusercontent.com/luamoris/webpack-boilerplate/276b2451ca1f7d11d6cddb83ae3418105511396b/src/img/box.svg
+[github]: https://github.com/luamoris/webpack-boilerplate
 
 [solution-repository]: https://github.com/luamoris/teachinder
 [deploy]: https://luamoris.github.io/teachinder/
