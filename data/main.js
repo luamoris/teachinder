@@ -171,7 +171,8 @@ function SearchUser(users, opts) {
 ========================================================== */
 
 function GetPercentItemsSearch(users, opts) {
-	return (100.0 / users.length) * users.filter((item) => checkForCompliance(item, opts)).length;
+	return (100.0 / users.length) * users.reduce((sum, item) => sum
+		+ (checkForCompliance(item, opts) ? 1 : 0), 0);
 }
 
 /* ======================================================= */
