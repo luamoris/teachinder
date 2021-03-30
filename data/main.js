@@ -80,8 +80,7 @@ function usersFormatting(userMock, othersUsers) {
 const validString = (str) => /^[\p{Lu}]{1}[\p{Ll}]+$/u.test(str);
 
 // Validating an array of strings
-const validArrStrings = (strs) => strs.length
-	=== strs.filter((element) => validString(element)).length;
+const validArrStrings = (strs) => strs.every((str) => validString(str) === true);
 
 // Validating a numeric integer value
 const validIsInteger = (num) => Number.isInteger(num) && num > 0;
