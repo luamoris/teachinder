@@ -9,7 +9,7 @@ const { randomUserMock, additionalUsers } = require('./mock.js');
 ========================================================== */
 
 const {
-	DataFormatting,
+	usersFormatting,
 	// Validation
 	validString,
 	validIsInteger,
@@ -33,7 +33,7 @@ const {
 
 describe('#1. Array of objects', () => {
 	test('number of resulting objects', () => {
-		const res = DataFormatting(randomUserMock, additionalUsers);
+		const res = usersFormatting(randomUserMock, additionalUsers);
 		expect(res.length).toEqual(52);
 	});
 });

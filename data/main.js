@@ -4,61 +4,72 @@
 
 const getField = (obj, ...args) => args.reduce((el, level) => el && el[level], obj);
 
-const createUsers = (id, oldUser) => {
-	const user = {
-		gender: getField(oldUser, 'gender') || null,
-		title: getField(oldUser, 'title') || getField(oldUser, 'name', 'title') || null,
-		full_name: getField(oldUser, 'full_name') || `${getField(oldUser, 'name', 'first') || ''} ${getField(oldUser, 'name', 'last') || ''}`,
-		state: getField(oldUser, 'state') || getField(oldUser, 'location', 'state') || null,
-		country: getField(oldUser, 'country') || getField(oldUser, 'location', 'country') || null,
-		postcode: getField(oldUser, 'postcode') || getField(oldUser, 'location', 'postcode') || null,
+const createUser = (index, oldUser) => {
+	const getData = (...args) => {
+		const data = getField(oldUser, ...args);
+		return (data !== undefined && typeof data !== 'object') ? data : null;
+	};
+	const id = getData('id') || `${getData('id', 'name') || ''}${getData('id', 'value') || ''}`;
+	return {
+		id: id || `NEW${1000000000 + index}`,
+		gender: getData('gender'),
+		title: getData('title') || getData('name', 'title'),
+		full_name: getData('full_name') || `${getData('name', 'first') || ''} ${getData('name', 'last') || ''}`.trim(),
+		state: getData('state') || getData('location', 'state'),
+		country: getData('country') || getData('location', 'country'),
+		postcode: getData('postcode') || getData('location', 'postcode'),
 		coordinates: {
-			latitude: getField(oldUser, 'coordinates', 'latitude') || getField(oldUser, 'location', 'coordinates', 'latitude') || null,
-			longitude: getField(oldUser, 'coordinates', 'longitude') || getField(oldUser, 'location', 'coordinates', 'longitude') || null,
+			latitude: getData('coordinates', 'latitude') || getData('location', 'coordinates', 'latitude'),
+			longitude: getData('coordinates', 'longitude') || getData('location', 'coordinates', 'longitude'),
 		},
 		timezone: {
-			offset: getField(oldUser, 'timezone', 'offset') || getField(oldUser, 'location', 'timezone', 'offset') || null,
-			description: getField(oldUser, 'timezone', 'description') || getField(oldUser, 'location', 'timezone', 'description') || null,
+			offset: getData('timezone', 'offset') || getData('location', 'timezone', 'offset'),
+			description: getData('timezone', 'description') || getData('location', 'timezone', 'description'),
 		},
-		email: getField(oldUser, 'email') || null,
-		b_date: getField(oldUser, 'b_day') || getField(oldUser, 'dob', 'date') || null,
-		age: getField(oldUser, 'dob', 'age') || null,
-		phone: getField(oldUser, 'phone') || null,
-		picture_large: getField(oldUser, 'picture_large') || getField(oldUser, 'picture', 'large') || null,
-		picture_thumbnail: getField(oldUser, 'picture_thumbnail') || getField(oldUser, 'picture', 'medium') || null,
-		favorite: getField(oldUser, 'favorite') || null,
-		course: getField(oldUser, 'course') || null,
-		bg_color: getField(oldUser, 'bg_color') || null,
-		note: getField(oldUser, 'note') || null,
+		email: getData('email'),
+		b_date: getData('b_day') || getData('dob', 'date'),
+		age: getData('dob', 'age'),
+		phone: getData('phone'),
+		picture_large: getData('picture_large') || getData('picture', 'large'),
+		picture_thumbnail: getData('picture_thumbnail') || getData('picture', 'medium'),
+		favorite: getData('favorite'),
+		course: getData('course'),
+		bg_color: getData('bg_color'),
+		note: getData('note'),
 	};
-	const oldId = getField(oldUser, 'id');
-	user.id = oldId && typeof (oldId) !== 'object' ? oldId : (getField(oldUser, 'id', 'value') ? `${oldUser.id.name}${oldUser.id.value}` : `NEW${1000000000 + id}`);
-	return user;
 };
 
-function DataFormatting(userMock, othersUsers) {
-	let i = 0;
+const createAdditUser = (oldUser) => {
+	const additUser = {};
+	oldUser.id && (additUser.id = oldUser.id);
+	oldUser.favorite && (additUser.favorite = oldUser.favorite);
+	oldUser.course && (additUser.course = oldUser.course);
+	oldUser.bg_color && (additUser.bg_color = oldUser.bg_color);
+	oldUser.note && (additUser.note = oldUser.note);
+	return additUser;
+};
+
+function usersFormatting(userMock, othersUsers) {
+	let id = 0;
 	const users = [];
-	userMock.forEach((item) => {
-		const newUser = createUsers(i++, item);
-		const additionalUser = othersUsers.find((el, index) => {
-			const isMatches = (el.full_name === newUser.full_name && el.phone === newUser.phone)
-			|| (el.full_name === newUser.full_name && el.id === newUser.id)
-			|| (el.full_name === newUser.full_name && el.email === newUser.email);
-			if (isMatches) { othersUsers[index].status = true; }
-			return isMatches;
-		});
-		if (additionalUser) {
-			newUser.id = additionalUser.id || newUser.id;
-			newUser.note = additionalUser.note || newUser.note;
-			newUser.bg_color = additionalUser.bg_color || newUser.bg_color;
-			newUser.course = additionalUser.course || newUser.course;
-			newUser.favorite = additionalUser.favorite || newUser.favorite;
+	const result = [];
+	[...userMock, ...othersUsers].forEach((item) => users.push(createUser(id++, item)));
+	for (let i = 0; i < users.length; i++) {
+		const user = users[i];
+		if (user) {
+			const repeat = users.findIndex((el, index) => el
+				&& (index !== i) && (el.full_name === user.full_name)
+				&& (el.id === user.id || el.phone === user.phone || el.email === user.email));
+			if (repeat !== -1) {
+				const additUser = createAdditUser(users[repeat]);
+				result.push(Object.assign(user, additUser));
+				users[repeat] = null;
+			} else {
+				result.push(user);
+			}
 		}
-		users.push(newUser);
-	});
-	othersUsers.forEach((item) => item.status ? users.push(createUsers(i++, item)) : undefined);
-	return users;
+	}
+	return result;
 }
 
 /* =======================================================
@@ -182,7 +193,7 @@ function GetPercentItemsSearch(users, opts) {
 
 module.exports = {
 	// Formation
-	DataFormatting,
+	usersFormatting,
 	// Validation
 	validString,
 	validIsInteger,
