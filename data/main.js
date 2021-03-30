@@ -127,8 +127,11 @@ const dateCompare = (date1, date2) => {
 // Validating options for sorting
 const validTemplateSort = (opts) => {
 	for (const item of opts) {
-		if (!item.field || typeof (item.field) !== 'string' || (item.type !== 'any' && item.type !== 'date')
-			|| (item.method !== 'ASC' && item.method !== 'DESC')) { throw Error("Template values are incorrect."); }
+		if (!item.field || typeof (item.field) !== 'string' || !item.type || !item.method
+			|| (item.type !== 'any' && item.type !== 'date')
+			|| (item.method !== 'ASC' && item.method !== 'DESC')) {
+			throw Error("Template values are incorrect.");
+		}
 		item.type === 'any' ? (item.sort = anyCompare) : (item.sort = dateCompare);
 	}
 	return opts;
@@ -163,7 +166,7 @@ const checkForCompliance = (user, opts) => Object.keys(opts).length !== 0
 	&& (opts.age ? (opts.age === user.age) : true) : false;
 
 function SearchUser(users, opts) {
-	return users.find((item) => checkForCompliance(item, opts));
+	return users.find((item) => checkForCompliance(item, opts)) || {};
 }
 
 /* =======================================================
