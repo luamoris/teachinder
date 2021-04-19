@@ -20,7 +20,7 @@ const {
 	// Sorting
 	anyCompare,
 	dateCompare,
-	validTemplateSort,
+	adaptOptions,
 	// Search
 	SearchUser,
 	// Percent
@@ -33,7 +33,7 @@ const {
 
 describe('#1. Array of objects', () => {
 	test('number of resulting objects', () => {
-		const res = usersFormatting(randomUserMock, additionalUsers);
+		const res = usersFormatting([...randomUserMock, ...additionalUsers]);
 		expect(res.length).toEqual(52);
 	});
 });
@@ -222,6 +222,11 @@ describe('#3. Filtration', () => {
 				},
 				res: 2,
 			},
+			{
+				id: 5,
+				filter: { age: 18, noName: 'not properties' },
+				res: 0,
+			},
 		];
 		const filter = (id) => opts[id].filter;
 		const res = (id) => opts[id].res;
@@ -231,6 +236,7 @@ describe('#3. Filtration', () => {
 		expect(FilterUsers(data, filter(2)).length).toEqual(res(2));
 		expect(FilterUsers(data, filter(3)).length).toEqual(res(3));
 		expect(FilterUsers(data, filter(4)).length).toEqual(res(4));
+		expect(FilterUsers(data, filter(5)).length).toEqual(res(5));
 		// test end
 	});
 });
@@ -284,7 +290,7 @@ describe('#4. Sorting', () => {
 		catchError(fun, '1890-07-31T21:57:32.876Z', '1890-42-31T21:57:32.876Z');
 	});
 	test('validation template sort <catch>', () => {
-		const fun = validTemplateSort;
+		const fun = adaptOptions;
 		catchError(fun, { field: '', type: 'any', method: 'ASC' });
 		catchError(fun, { field: true, type: 'any', method: 'ASC' });
 		catchError(fun, { field: 'age', type: 'anym', method: 'ASC' });
