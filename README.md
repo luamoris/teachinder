@@ -6,7 +6,8 @@
 > + [Live Site][deploy]
 
 # Prerequisites 
-`Node.js (^10.12.0, or >=12.0.0)`
+`Node.js (^10.12.0, or >=14.0.0)`
+<!-- `Node.js (^10.12.0, or >=12.0.0)` -->
 
 ---
 
