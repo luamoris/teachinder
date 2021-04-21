@@ -4,44 +4,47 @@
 
 const getField = (obj, ...args) => args.reduce((el, level) => el && el[level], obj);
 
-const createUser = (oldUser, index) => {
-	const getData = (...args) => {
-		const res = getField(oldUser, ...args);
+const createUser = (user, index) => {
+	const get = (...args) => {
+		const res = getField(user, ...args);
 		return res && typeof res !== 'object' ? res : null;
 	};
-	const id = getData('id') || `${getData('id', 'name') || ''}${getData('id', 'value') || ''}`;
+	const defaultId = 1000000000;
+	const id = get('id') || `${get('id', 'name') || ''}${get('id', 'value') || ''}`;
 	return {
-		id: id || `NEW${1000000000 + index}`,
-		gender: getData('gender'),
-		title: getData('title') || getData('name', 'title'),
-		full_name: getData('full_name') || `${getData('name', 'first') || ''} ${getData('name', 'last') || ''}`.trim(),
-		state: getData('state') || getData('location', 'state'),
-		country: getData('country') || getData('location', 'country') || 'Unknown',
-		postcode: getData('postcode') || getData('location', 'postcode'),
-		coordinates: getData('coordinates') || getData('location', 'coordinates'),
-		timezone: getData('timezone') || getData('location', 'timezone'),
-		email: getData('email'),
-		b_date: getData('b_day') || getData('dob', 'date'),
-		age: getData('dob', 'age'),
-		phone: getData('phone'),
-		picture_large: getData('picture_large') || getData('picture', 'large') || 'https://cutt.ly/pvU9aKC',
-		picture_thumbnail: getData('picture_thumbnail') || getData('picture', 'medium') || 'https://cutt.ly/pvU9aKC',
-		favorite: getData('favorite'),
-		course: getData('course'),
-		bg_color: getData('bg_color') || '#65A3BE',
-		note: getData('note') || '',
+		id: id || `NEW${defaultId + index}`,
+		gender: get('gender'),
+		title: get('title') || get('name', 'title'),
+		full_name: get('full_name') || `${get('name', 'first') || ''} ${get('name', 'last') || ''}`.trim(),
+		state: get('state') || get('location', 'state'),
+		country: get('country') || get('location', 'country'),
+		postcode: get('postcode') || get('location', 'postcode'),
+		coordinates: {
+			latitude: get('coordinates', 'latitude') || get('location', 'coordinates', 'latitude'),
+			longitude: get('coordinates', 'longitude') || get('location', 'coordinates', 'longitude'),
+		},
+		timezone: {
+			offset: get('timezone', 'offset') || get('location', 'timezone', 'offset'),
+			description: get('timezone', 'description') || get('location', 'timezone', 'description'),
+		},
+		email: get('email'),
+		b_date: get('b_day') || get('dob', 'date'),
+		age: get('dob', 'age'),
+		phone: get('phone'),
+		picture_large: get('picture_large') || get('picture', 'large'),
+		picture_thumbnail: get('picture_thumbnail') || get('picture', 'medium'),
+		favorite: get('favorite'),
+		course: get('course'),
+		bg_color: get('bg_color'),
+		note: get('note'),
 	};
 };
 
-const getCleanObject = (user) => {
-	const res = {};
-	for (const key in user) {
-		if (Object.prototype.hasOwnProperty.call(user, key)) {
-			user[key] && (res[key] = user[key]);
-		}
-	}
-	return res;
-};
+const getCleanObject = (user) => Object.keys(user)
+	.reduce((res, key) => {
+		user[key] && (res[key] = user[key]);
+		return res;
+	}, {});
 
 function usersFormatting(usersMock) {
 	const users = usersMock.map(createUser);
