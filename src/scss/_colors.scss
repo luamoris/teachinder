@@ -1,0 +1,157 @@
+// ================================================== ROOT
+
+:root {
+	// === app
+	--app: #1d1d1d;
+	--app-body: rgba(255, 255, 255, 0.05);
+	--app-empty: rgba(255, 255, 255, 0.05);
+	--logo: rgba(255, 125, 100, 0.8);
+	--logo-bg: rgba(255, 125, 100, 0.2);
+	--selection: rgba(255, 255, 255, 0.2);
+
+	// === button
+	--btn-bg: rgba(255, 255, 255, 0.1);
+	--btn-text: rgba(255, 255, 255, 0.5);
+	--btn-bg-hover: rgba(255, 125, 100, 0.2);
+	--btn-text-hover: rgba(255, 125, 100, 0.8);
+
+	// === menu
+	--menu-line: rgba(255, 255, 255, 0.8);
+	--menu-blue: rgba(180, 183, 255, 0.6);
+	--menu-red: rgba(255, 255, 255, 0.5);
+	--menu-blue-hover: rgba(180, 183, 255, 0.9);
+	--menu-red-hover: rgba(255, 125, 100, 0.8);
+
+	// === input
+	--input-bg: rgba(255, 255, 255, 0.1);
+	--input-bg-hover: rgba(255, 255, 255, 0.2);
+	--input-text: rgba(255, 255, 255, 0.6);
+
+	// === input filter
+	--input-filter-bg: rgba(255, 255, 255, 0.8);
+	--input-filter-text: #1d1d1d;
+
+	// === burger
+	--burger-bg: #111;
+	--burger-line: rgba(255, 255, 255, 0.6);
+	--close: rgba(255, 255, 255, 0.8);
+
+	// === center line
+	--center-line: rgba(255, 255, 255, 0.6);
+	--section-title: rgba(255, 255, 255, 0.8);
+
+	// === filter
+	--filter-bg: rgba(189, 189, 189, 0.1);
+	--filter-bg-hover: rgba(255, 255, 255, 0.2);
+	--filter-bg-active: rgba(255, 125, 100, 0.6);
+	--filter-bg-opt: rgba(189, 189, 189, 0.05);
+	--filter-dotted: rgba(189, 189, 189, 0.3);
+	--filter-text: rgba(189, 189, 189, 0.6);
+	--filter-text-hover: rgba(189, 189, 189, 0.6);
+	--filter-text-active: rgba(255, 125, 100, 0.8);
+
+	// === avatar
+	--avatar-border: #f66;
+	--avatar-border-hover: conic-gradient(from 0deg at 50% 50%, rgba(255, 102, 102, 0) 0deg, #f66 360deg);
+	--avatar-name: rgba(255, 255, 255, 0.6);
+	--avatar-country: rgba(255, 255, 255, 0.4);
+	--avatar-favorite-border: rgba(255, 210, 128, 0.6);
+	--avatar-favorite-border-hover: conic-gradient(from 0deg at 50% 50%, rgba(255, 102, 102, 0) 0deg, rgba(255, 210, 128, 1) 360deg);
+	--initials-bg: #1d1d1d;
+	--initials-text: rgba(255, 255, 255, 0.4);
+	--avatar-bg: rgba(255, 255, 255, 0.05);
+
+	// === checkbox
+	--checkbox: rgba(255, 255, 255, 1);
+	--checkbox-active: rgba(255, 125, 100, 0.8);
+
+	// === button apply
+	--btn-apply-bg: rgba(255, 255, 255, 0.5);
+	--btn-apply-text: rgba(29, 29, 29, 0.7);
+	--btn-apply-bg-hover: rgba(222, 185, 144, 0.7);
+	--btn-apply-text-hover: rgba(29, 29, 29, 0.8);
+
+	// === about
+	--paragraph: rgba(255, 255, 255, 0.6);
+
+	// === table
+	--table-border: rgb(59, 59, 59);
+
+	// === table header
+	--table-header-bg: rgba(255, 255, 255, 0.05);
+	--table-header-bg-active: rgba(255, 255, 255, 0.1);
+	--table-header-text: rgba(255, 134, 142, 0.8);
+	--table-header-mobile-text: rgba(255, 134, 142, 0.6);
+	--table-header-text-active: rgba(255, 134, 142, 1);
+
+	// === table body
+	--table-body-text: rgba(255, 255, 255, 0.6);
+	--table-body-bg-hover: rgba(255, 134, 142, 0.05);
+	--table-body-mobil-bg: rgba(255, 255, 255, 0.03);
+
+	// === pagination
+	--pagination-color: rgba(133, 164, 255, 0.6);
+	--pagination-color-active: rgba(133, 164, 255, 0.9);
+	--pagination-bg: rgba(117, 152, 255, 0.1);
+	--pagination-bg-active: rgba(117, 152, 255, 0.2);
+	--pagination-current: rgba(255, 134, 142, 0.2);
+
+	// === slider
+	--slider-btn-active: rgba(255, 255, 255, 0.6);
+	--slider-btn-not-active: rgba(255, 255, 255, 0.1);
+	--slider-btn-not-active-hover: rgba(255, 210, 128, 0.6);
+
+	// === popup
+	--popup-bg: rgba(0, 0, 0, 0.8);
+	--infocard-bg: rgba(255, 255, 255, 1);
+	--infocard-title-bg: rgba(255, 125, 100, 0.8);
+	--infocard-title-text: rgba(255, 125, 100, 0.2);
+	--infocard-close: #1d1d1d;
+	--infocard-close-hover: rgba(255, 125, 100, 1);
+
+	// === person info
+	--person-text: rgb(121, 102, 102);
+	--person-type-bg: rgba(142, 126, 126, 0.1);
+	--person-type-color: rgba(142, 126, 126, 0.7);
+	--person-fullname-bg: rgba(142, 126, 126, 0.1);
+	--person-fullname-text: rgba(142, 126, 126, 1);
+	--person-email: rgba(133, 164, 255, 1);
+	--person-comment-empty: rgba(0, 0, 0, 0.1);
+
+	// === person details
+	--details-marker: rgb(255, 99, 71);
+	--details-marker-hover: rgb(206, 188, 29);
+	--details-marker-active: rgb(90, 171, 24);
+
+	// === person map
+	--map-bg: rgba(255, 125, 100, 0.1);
+
+	// ===
+	--form-title-text: rgba(252, 179, 111, 1);
+	--form-title-bg: rgba(252, 179, 111, 0.2);
+
+	// ===
+	--form-btn-bg: rgba(222, 185, 144, 0.2);
+	--form-btn-bg-hover: rgba(222, 185, 144, 0.3);
+	--form-btn-text: rgba(222, 185, 144, 1);
+
+	// ===
+	--form-input-bg-focus: rgba(252, 179, 111, 0.05);
+	--form-input-border: rgba(252, 179, 111, 0.5);
+	--form-input-border-focus: rgba(252, 179, 111, 1);
+	--form-input-text: rgba(174, 108, 48, 0.8);
+	--form-input-text-holder: rgba(121, 102, 102, 0.4);
+
+	// ===
+	--form-input-bg-invalid: rgba(255, 125, 100, 0.1);
+	--form-input-text-invalid: rgba(255, 125, 100, 1);
+	--form-input-border-invalid: rgba(255, 125, 100, 1);
+
+	// ===
+	--form-label: rgba(121, 102, 102, 0.8);
+
+	// ===
+	--form-input-radio-border: rgba(121, 102, 102, 0.8);
+	--form-input-radio-bg-active: rgba(252, 179, 111, 0.8);
+	--form-input-radio-text: rgba(121, 102, 102, 1);
+}

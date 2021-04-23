@@ -1,0 +1,45 @@
+// ================================================== SHELL
+
+#wrapper {
+	overflow: hidden;
+	width: 100%;
+	min-width: $minWidth;
+	min-height: 100vh;
+}
+
+.app {
+	width: 100%;
+	background-color: var(--app);
+
+	&__body {
+		width: 100%;
+		min-height: 100vh;
+		background-color: var(--app-body);
+	}
+}
+
+.container {
+	margin: 0 auto;
+	padding: 0 10px;
+	max-width: $container;
+}
+
+.app_restrictions {
+	@include adaptive("padding-top", 1440, 768, 40, 20);
+	@include adaptive("padding-right", 1440, 768, 100, 10);
+	@include adaptive("padding-bottom", 1440, 768, 50, 20);
+	@include adaptive("padding-left", 1440, 768, 100, 10);
+
+	display: grid;
+	grid-row-gap: 30px;
+	grid-template: minmax(0, auto) 1fr minmax(0, auto) / 1fr;
+	overflow: hidden;
+}
+
+// =============== @MEDIA
+
+@media screen and  (max-width: 768px) {
+	.container {
+		padding: 0;
+	}
+}

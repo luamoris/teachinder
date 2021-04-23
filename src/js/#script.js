@@ -3,4 +3,5 @@
 // ======================================================= MODULES
 
 // TEACHERS DATA
-require('./teachers');
+require('./show');
+// require('./teachers');

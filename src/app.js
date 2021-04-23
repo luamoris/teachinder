@@ -1,7 +1,5 @@
 /* ====================================================================================== MODULES */
-// require('./js/#script');
-require('./js/test');
+require('./js/#script');
 
 /* ====================================================================================== STYLE */
-// require('./scss/#style.scss');
-require('./scss/s.scss');
+require('./scss/#style.scss');

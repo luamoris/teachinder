@@ -191,10 +191,23 @@ function GetPercentItemsSearch(users, opts) {
 /* ======================================================= */
 
 module.exports = {
+	// Formation
 	usersFormatting,
+	// Validation
+	validString,
+	validIsInteger,
+	validIsEmail,
+	validIsPhoneNumber,
 	ValidationUser,
+	// Filtration
 	FilterUsers,
+	// Sorting
+	anyCompare,
+	dateCompare,
+	adaptOptions,
 	SortUsers,
+	// Search
 	SearchUser,
+	// Percent
 	GetPercentItemsSearch,
 };

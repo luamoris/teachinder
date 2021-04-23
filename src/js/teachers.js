@@ -8,7 +8,7 @@
 
 	// ======================================================= DATA
 
-	const { randomUserMock, additionalUsers } = require('./mock');
+	const { randomUserMock, additionalUsers } = require('../data/mock');
 
 	// ======================================================= CONSTANTS
 

@@ -2,7 +2,7 @@
 	Require
 ========================================================== */
 
-const { randomUserMock, additionalUsers } = require('./mock.js');
+const { randomUserMock, additionalUsers } = require('../src/data/mock');
 
 /* =======================================================
 	Functions
@@ -25,7 +25,7 @@ const {
 	SearchUser,
 	// Percent
 	GetPercentItemsSearch,
-} = require('./main');
+} = require('../src/js/process');
 
 /* =======================================================
 	1. Array of objects
