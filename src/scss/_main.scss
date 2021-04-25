@@ -56,7 +56,7 @@
 	justify-content: flex-start;
 	width: 100%;
 
-	&__title {
+	&__button {
 		display: block;
 		margin-right: 10px;
 		border-radius: 2px 2px 0 0;
@@ -84,7 +84,7 @@
 // =============== .filter_active
 
 .filter.filter_active {
-	.filter__title {
+	.filter__button {
 		background-color: var(--filter-bg-active);
 
 		&:hover {
@@ -278,16 +278,18 @@
 			transform: translate(-50%, -50%);
 		}
 	}
+
+	.teachers {
+		@include adaptive("grid-column-gap", 1440, 1024, 40, 10);
+		@include adaptive("grid-row-gap", 1440, 1024, 40, 10);
+
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+		width: 100%;
+	}
 }
 
 .teachers {
-	@include adaptive("grid-column-gap", 1440, 1024, 40, 10);
-	@include adaptive("grid-row-gap", 1440, 1024, 40, 10);
-
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-	width: 100%;
-
 	&__item {
 		display: flex;
 		flex-direction: column;
@@ -321,6 +323,7 @@
 		@include adaptive("font-size", 1440, 375, 12, 8);
 
 		overflow: hidden;
+		width: 100%;
 		max-width: 130px;
 		font-size: 12px;
 		text-align: center;
@@ -332,11 +335,12 @@
 }
 
 .avatar {
+	@include adaptive("width", 1440, 375, 120, 100);
+	@include adaptive("height", 1440, 375, 120, 100);
+
 	position: relative;
 	border-radius: 50%;
 	padding: 4px;
-	width: 120px;
-	height: 120px;
 	cursor: pointer;
 
 	&::before {
@@ -366,8 +370,9 @@
 		background-color: var(--initials-bg);
 
 		h3 {
+			@include adaptive("font-size", 1440, 375, 32, 24);
+
 			font-weight: 600;
-			font-size: 32px;
 			text-transform: capitalize;
 			color: var(--initials-text);
 		}
@@ -691,8 +696,11 @@
 	width: 100%;
 
 	.teachers {
+		display: grid;
 		grid-auto-flow: column;
+		grid-column-gap: 40px;
 		grid-template-columns: repeat(4, minmax(170px, 1fr));
+		width: 100%;
 	}
 
 	&_btn_not_active {
@@ -711,6 +719,8 @@
 	}
 
 	&__body {
+		display: flex;
+		justify-content: center;
 		overflow: hidden;
 		margin: 0 auto;
 		width: calc(100% - 100px);
@@ -760,6 +770,7 @@
 @media (max-width: 850px) {
 	.slider {
 		.teachers {
+			grid-column-gap: 0;
 			grid-template-columns: repeat(2, minmax(170px, 1fr));
 
 			&__item:nth-child(3) {

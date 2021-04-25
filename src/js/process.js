@@ -33,7 +33,7 @@ const createUser = (user, index) => {
 		phone: get('phone'),
 		picture_large: get('picture_large') || get('picture', 'large'),
 		picture_thumbnail: get('picture_thumbnail') || get('picture', 'medium'),
-		favorite: get('favorite'),
+		favorite: get('favorite') || false,
 		course: get('course'),
 		bg_color: get('bg_color'),
 		note: get('note'),
@@ -42,7 +42,7 @@ const createUser = (user, index) => {
 
 const getCleanObject = (user) => Object.keys(user)
 	.reduce((res, key) => {
-		user[key] && (res[key] = user[key]);
+		(user[key] && user[key] !== '-') && (res[key] = user[key]);
 		return res;
 	}, {});
 
@@ -56,7 +56,8 @@ function usersFormatting(usersMock) {
 				|| oldUser.phone === user.phone || oldUser.email === user.email));
 			// check if we found
 			if (userCloneIndex !== -1) {
-				const resUser = Object.assign(user, getCleanObject(array[userCloneIndex]));
+				const cloneUser = getCleanObject(array[userCloneIndex]);
+				const resUser = Object.assign(user, cloneUser);
 				array[userCloneIndex] = null;
 				return resUser;
 			}

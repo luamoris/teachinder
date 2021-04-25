@@ -14,7 +14,8 @@
 	width: 100%;
 	height: 100vh;
 	min-height: 100vh;
-	background-color: var(--popup-bg);
+	background-color: transparent;
+	transition: background 200ms ease-in-out;
 }
 
 .modal {
@@ -23,14 +24,15 @@
 	width: 100%;
 	height: 100vh;
 
-	&__container {
+	.container {
 		margin: 0 auto;
 		padding: 20px 10px;
 		width: 100%;
 		min-height: 100vh;
 		max-width: 1400px;
-		transform: scale(0);
-		transition: transform 500ms ease;
+		opacity: 0;
+		transform: scale(0.3);
+		transition: all 200ms ease-in-out;
 	}
 
 	&__body {
@@ -48,8 +50,17 @@ body.popup_active {
 	overflow: hidden;
 }
 
-.modal__container.popup_active {
-	transform: scale(1);
+.popup.popup_active {
+	background-color: var(--popup-bg);
+	transition: background 300ms ease-out;
+
+	.modal {
+		.container {
+			opacity: 1;
+			transform: scale(1);
+			transition: all 300ms ease-out;
+		}
+	}
 }
 
 // ============================== INFOCARD
@@ -110,12 +121,10 @@ body.popup_active {
 		height: 100%;
 
 		.picture {
-			border-radius: 5px;
-			padding: 10px;
 			width: 100%;
-			background-color: var(--infocard-title-text);
 
 			img {
+				border-radius: 5px;
 				width: 100%;
 			}
 		}
@@ -177,7 +186,7 @@ body.popup_active {
 		background-color: var(--person-fullname-bg);
 	}
 
-	&__favorite {
+	.favorite {
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
@@ -206,7 +215,7 @@ body.popup_active {
 		}
 	}
 
-	&__favorite.favorite_true {
+	.favorite.favorite_true {
 		svg {
 			path {
 				fill: rgba(255, 125, 100, 1);
@@ -308,7 +317,7 @@ body.popup_active {
 
 @media (max-width: 768px) {
 	.person {
-		grid-template: 350px repeat(2, auto) / repeat(2, 1fr);
+		grid-template: repeat(3, auto) / repeat(2, 1fr);
 		grid-template-areas:
 			"box box"
 			"info info"

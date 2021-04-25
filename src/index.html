@@ -76,7 +76,7 @@
 						<div class="section__content">
 							<!-- FILTER -->
 							<div class="filter">
-								<span class="filter__title">filter by</span>
+								<span class="filter__button">filter by</span>
 								<div class="options">
 									<form class="options__body" action="#">
 										<div class="options__item">
@@ -110,91 +110,7 @@
 								</div>
 							</div>
 							<!-- TEACHERS LIST -->
-							<div class="top-teachers">
-								<ul class="teachers">
-									<li class="teachers__item teachers_favorite">
-										<div class="avatar">
-											<div class="avatar__picture">
-												<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-											</div>
-										</div>
-										<h3 class="teachers__name">full<br>name</h3>
-										<h5 class="teachers__country">country</h5>
-									</li>
-									<li class="teachers__item">
-										<div class="avatar">
-											<div class="avatar__picture">
-												<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-											</div>
-										</div>
-										<h3 class="teachers__name">full<br>name</h3>
-										<h5 class="teachers__country">country</h5>
-									</li>
-									<li class="teachers__item">
-										<div class="avatar">
-											<div class="avatar__picture">
-												<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-											</div>
-										</div>
-										<h3 class="teachers__name">full<br>name</h3>
-										<h5 class="teachers__country">country</h5>
-									</li>
-									<li class="teachers__item teachers_favorite">
-										<div class="avatar">
-											<div class="avatar__picture">
-												<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-											</div>
-										</div>
-										<h3 class="teachers__name">full<br>name</h3>
-										<h5 class="teachers__country">country</h5>
-									</li>
-									<li class="teachers__item">
-										<div class="avatar">
-											<div class="avatar__picture">
-												<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-											</div>
-										</div>
-										<h3 class="teachers__name">full<br>name</h3>
-										<h5 class="teachers__country">country</h5>
-									</li>
-									<li class="teachers__item">
-										<div class="avatar">
-											<div class="avatar__picture">
-												<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-											</div>
-										</div>
-										<h3 class="teachers__name">full<br>name</h3>
-										<h5 class="teachers__country">country</h5>
-									</li>
-									<li class="teachers__item">
-										<div class="avatar">
-											<div class="avatar__picture">
-												<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-											</div>
-										</div>
-										<h3 class="teachers__name">full<br>name</h3>
-										<h5 class="teachers__country">country</h5>
-									</li>
-									<li class="teachers__item">
-										<div class="avatar">
-											<div class="avatar__initials">
-												<h3>f.n</h3>
-											</div>
-										</div>
-										<h3 class="teachers__name">full<br>name</h3>
-										<h5 class="teachers__country">country</h5>
-									</li>
-									<li class="teachers__item teachers_favorite">
-										<div class="avatar">
-											<div class="avatar__initials">
-												<h3>f.n</h3>
-											</div>
-										</div>
-										<h3 class="teachers__name">full<br>name</h3>
-										<h5 class="teachers__country">country</h5>
-									</li>
-								</ul>
-							</div>
+							<div class="top-teachers"></div>
 						</div>
 					</section>
 
@@ -421,6 +337,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="scroll_hidden"></div>
 </div>
 
 <!-- Shell END -->
@@ -431,7 +348,7 @@
 <!-- INFOCARD -->
 <dialog class="popup" id="teachinderInfocard">
 	<div class="modal">
-		<div class="modal__container">
+		<div class="container">
 			<div class="modal__body">
 
 				<!-- INFOCARD -->
@@ -455,7 +372,7 @@
 								<h2 class="person__fullname">name surname</h2>
 							</div>
 							<div class="person__item">
-								<div class="person__favorite">
+								<div class="person__favorite favorite">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path
 											d="M10.8866 19.6603L10.8859 19.6596C8.30081 17.3155 6.19567 15.4057 4.73078 13.6147C3.27162 11.8307 2.5 10.2258 2.5 8.5C2.5 5.69614 4.69614 3.5 7.5 3.5C9.08861 3.5 10.6211 4.24197 11.6193 5.41417L12 5.8612L12.3807 5.41417C13.3789 4.24197 14.9114 3.5 16.5 3.5C19.3039 3.5 21.5 5.69614 21.5 8.5C21.5 10.2258 20.7284 11.8308 19.2691 13.6161C17.8065 15.4055 15.7058 17.3144 13.1265 19.6583L13.1148 19.669L13.1137 19.67L12.0013 20.675L10.8866 19.6603Z"
@@ -530,11 +447,11 @@
 <!-- FORM "ADD TEACHER" -->
 <dialog class="popup" id="teachinderCreateTeacher">
 	<div class="modal">
-		<div class="modal__container">
+		<div class="container">
 			<div class="modal__body">
 
 				<!-- FORM "ADD TEACHER" -->
-				<div class="teacher-form" data-color="#65A3BE">
+				<div class="teacher-form" data-color="#65a3be">
 					<!-- CLOSE BTN -->
 					<div class="close">&#10006;</div>
 					<!-- FORM -->

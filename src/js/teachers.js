@@ -1,85 +1,112 @@
 ;(() => {
 	'use strict';
 
-	// ======================================================= MODULES
+	// ======================================================= TOP TEACHERS
 
 	const Process = require('./process');
-	const Infocard = require('./infocard');
-
-	// ======================================================= DATA
+	const Infocard = require('./modules/infocard');
 
 	const { randomUserMock, additionalUsers } = require('../data/mock');
 
 	// ======================================================= CONSTANTS
-
-	// DATA API
 	const users = Process.usersFormatting([...randomUserMock, ...additionalUsers]);
 
-	// POPUP INFOCARD
-	const popupInfocard = new Infocard('infocardTeacher', {
+	// DOM API
+	const popupInfocardElm = document.getElementById('teachinderInfocard');
+	const topTeachersElm = document.querySelector('.top-teachers');
+
+	// CLASSES STYLE
+	const classes = {
 		prefix: 'person__',
-		picture: 'picture',
-		map: 'map',
-		textClasses: {
+		blocks: {
+			infocard: '.infocard',
+			favorite: '.favorite',
+			btnClose: '.close',
+		},
+		dataset: {
+			photo: 'photo',
+			map: 'map',
+		},
+		text: {
 			full_name: 'fullname',
 			country: 'country',
 			state: 'city',
 			age: 'age',
-			title: 'sex',
+			gender: 'sex',
 			email: 'email',
 			phone: 'mobile',
-			note: 'description',
+			note: 'comment',
 		},
-	});
+		modifiers: {
+			popup: 'popup_active',
+			favorite: 'favorite_true',
+			teachers: 'teachers_favorite',
+		},
+	};
 
-	// HTML DOM ELEMENT
-	const teachers = document.getElementById('teachers');
-	const teachersList = teachers.querySelector('.teachers__list');
+	// ===
+	const getClass = (prefix, className) => `.${prefix}${className}`;
+
+	for (const item of Object.keys(classes.dataset)) {
+		classes.dataset[item] = getClass(classes.prefix, classes.dataset[item]);
+	}
+	for (const item of Object.keys(classes.text)) {
+		classes.text[item] = getClass(classes.prefix, classes.text[item]);
+	}
+
+	// INFOCARD
+	const infocard = new Infocard(popupInfocardElm, classes);
 
 	// ======================================================= FUNCTIONS
 
-	// ============================ HANDLERS
-
-	// USER CLICK
-	function clickTopUser(user) {
-		popupInfocard.setData(user);
-		popupInfocard.start();
+	function clickUserElement(userData, userElm) {
+		infocard.setUser(userData, userElm);
+		infocard.start();
 	}
 
-	// ============================ ANY
+	function createAvatarHTML(user) {
+		let res = '';
+		if (user.picture_large) {
+			const alt = `This is a portrait of a ${user.full_name}.`;
+			res = `<div class="avatar__picture"><img src="${user.picture_large}" alt="${alt}"></div>`;
+		} else {
+			const initials = user.full_name.split(' ').reduce((str, item) => `${str}${item.charAt(0)}.`, '');
+			res = `<div class="avatar__initials"><h3>${initials}</h3></div>`;
+		}
+		return `<div class="avatar">${res}</div>`;
+	}
 
-	// CREATE NEW USER HTML ELEMENT
-	function createUserElement(userData) {
-		const userElement = document.createElement('div');
-		userElement.classList.add('teachers__item');
-		userElement.onclick = () => clickTopUser(userData);
-		// ===
-		userElement.innerHTML = `
-			<div class="circle__frame">
-				<div class="circle">
-					<img
-						src="${userData.picture_large || '../img/person.svg'}"
-						alt="This is a portrait of a ${userData.full_name}."
-					>
-				</div>
-			</div>
-			<div class="teachers__name">
-				${userData.full_name.replace(/\s/, '<br>')}
-			</div>
-			<div class="teachers__country">
-				${userData.country || 'residence unknown'}
-			</div>
-		`;
-		return userElement;
+	function createFullnameHTML(user) {
+		const fullname = user.full_name.replace(/\s/, '<br>');
+		return `<h3 class="teachers__name">${fullname}</h3>`;
+	}
+
+	function createCountryHTML(user) {
+		const country = user.country || '-';
+		return `<h5 class="teachers__country">${country}</h5>`;
+	}
+
+	function createUserElement(user) {
+		const userElm = document.createElement('li');
+		userElm.classList.add('teachers__item');
+		user.favorite && userElm.classList.add('teachers_favorite');
+		userElm.innerHTML = `${createAvatarHTML(user)}${createFullnameHTML(user)}${createCountryHTML(user)}`;
+		return userElm;
 	}
 
 	// ======================================================= MAIN
 
 	function start() {
+		const teacherList = document.createElement('ul');
+		teacherList.classList.add('teachers');
+		// ===
 		users.forEach((user) => {
-			const userHTML = createUserElement(user);
-			teachersList.appendChild(userHTML);
+			const userElm = createUserElement(user);
+			userElm.onclick = () => clickUserElement(user, userElm);
+			teacherList.appendChild(userElm);
 		});
+		// ===
+		topTeachersElm.appendChild(teacherList);
 	}
 
 	start();
