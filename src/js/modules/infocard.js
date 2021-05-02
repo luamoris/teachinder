@@ -66,7 +66,7 @@ function Infocard(popupElement, classes) {
 		// ===
 		btnClose.onclick = this.stop;
 		btnFavorite.onclick = clickFavorite;
-		document.body.classList.add(classes.modifiers.popup);
+		document.body.classList.add(classes.mdifiers.popup);
 		popupElement.setAttribute('open', 'true');
 		setTimeout(() => {
 			popupElement.classList.add(classes.modifiers.popup);

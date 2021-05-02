@@ -43,6 +43,7 @@
 		"strict": 0,
 		"object-curly-newline": 0,
 		"no-extra-semi": 0,
-		"global-require": 0
+		"global-require": 0,
+		"radix": 0
 	}
 }

@@ -81,11 +81,13 @@
 									<form class="options__body" action="#">
 										<div class="options__item">
 											<select name="country" id="filterCountry" class="options__input select__input">
-												<option value="den">denmark</option>
-												<option value="eng">england</option>
-												<option value="est">estonia</option>
-												<option value="lat">latvia</option>
-												<option value="ukr" selected >ukraine</option>
+												<option value="Denmark">Denmark</option>
+												<option value="England">England</option>
+												<option value="Estonia">Estonia</option>
+												<option value="Latvia">Latvia</option>
+												<option value="Norway">Norway</option>
+												<option value="Finland">Finland</option>
+												<option value="Ukraine" selected >Ukraine</option>
 											</select>
 											<label for="filterCountry" class="options__label select__label">country</label>
 										</div>
@@ -98,7 +100,7 @@
 											<label for="filterMale" class="options__label checkbox_label">Male</label>
 										</div>
 										<div class="options__item">
-											<input id="filterFemale" class="options__input checkbox_hidden" type="checkbox" name="gender">
+											<input id="filterFemale" class="options__input checkbox_hidden" type="checkbox" name="female">
 											<label for="filterFemale" class="options__label checkbox_label">Female</label>
 										</div>
 										<div class="options__item">
@@ -110,7 +112,7 @@
 								</div>
 							</div>
 							<!-- TEACHERS LIST -->
-							<div class="top-teachers"></div>
+							<div class="top-teachers" id="topTeachersListBox"></div>
 						</div>
 					</section>
 
@@ -225,44 +227,7 @@
 							<div class="slider">
 								<div class="slider__prev slider_btn_active"></div>
 								<div class="slider__body">
-									<ul class="teachers">
-										<li class="teachers__item">
-											<div class="avatar">
-												<div class="avatar__picture">
-													<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-												</div>
-											</div>
-											<h3 class="teachers__name">full<br>name</h3>
-											<h5 class="teachers__country">country</h5>
-										</li>
-										<li class="teachers__item">
-											<div class="avatar">
-												<div class="avatar__picture">
-													<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-												</div>
-											</div>
-											<h3 class="teachers__name">full<br>name</h3>
-											<h5 class="teachers__country">country</h5>
-										</li>
-										<li class="teachers__item">
-											<div class="avatar">
-												<div class="avatar__picture">
-													<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-												</div>
-											</div>
-											<h3 class="teachers__name">full<br>name</h3>
-											<h5 class="teachers__country">country</h5>
-										</li>
-										<li class="teachers__item">
-											<div class="avatar">
-												<div class="avatar__picture">
-													<img src="./img/author.jpg" alt="This is a portrait of a teacher.">
-												</div>
-											</div>
-											<h3 class="teachers__name">full<br>name</h3>
-											<h5 class="teachers__country">country</h5>
-										</li>
-									</ul>
+									<ul class="teachers" id="favoriteTeachersList"></ul>
 								</div>
 								<div class="slider__next slider_btn_not_active"></div>
 							</div>
@@ -462,19 +427,19 @@
 						<div class="form__catalog">
 							<!-- NAME -->
 							<div class="form__point">
-								<label for="formName" class="form__label">name</label>
-								<input id="formName" class="form__input" name="name" type="text" pattern="^[\p{Lu}]{1}[\p{Ll}]+$"
+								<label for="formName" class="form__label">fullname</label>
+								<input id="formName" class="form__input" name="fullname" type="text" pattern="^([\p{Lu}]{1}[\p{Ll}]+\s?)+$"
 									placeholder="Enter name" required>
 							</div>
 							<!-- COUNTRY -->
 							<div class="form__point">
 								<label for="formCountry" class="form__label">country</label>
 								<select id="formCountry" class="form__input form__select" name="country">
-									<option value="de">Denmark</option>
-									<option value="en">England</option>
-									<option value="es">Estonia</option>
-									<option value="la">Latvia</option>
-									<option value="uk" selected>Ukraine</option>
+									<option value="denmark">Denmark</option>
+									<option value="england">England</option>
+									<option value="estonia">Estonia</option>
+									<option value="latvia">Latvia</option>
+									<option value="ukraine" selected>Ukraine</option>
 								</select>
 							</div>
 							<!-- CITY -->
@@ -486,7 +451,7 @@
 							<!-- PHONE -->
 							<div class="form__point">
 								<label for="formPhone" class="form__label">phone</label>
-								<input id="formPhone" class="form__input" name="phone" type="tel"
+								<input id="formPhone" class="form__input" name="mobile" type="tel"
 									pattern="(\+)?([- _():=+]?\d[- _():=+]?){10,14}" placeholder="Enter phone" required>
 							</div>
 							<!-- EMAIL -->
@@ -498,7 +463,7 @@
 							<!-- DATA BIRTHDAY -->
 							<div class="form__point">
 								<label for="formDate" class="form__label">birthday</label>
-								<input id="formDate" class="form__input" name="date" type="date" required>
+								<input id="formDate" class="form__input" name="date" type="date" value="2003-01-01" required>
 							</div>
 							<!-- SEX -->
 							<div class="form__point form__radio">

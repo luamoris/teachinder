@@ -696,11 +696,36 @@
 	width: 100%;
 
 	.teachers {
-		display: grid;
-		grid-auto-flow: column;
-		grid-column-gap: 40px;
-		grid-template-columns: repeat(4, minmax(170px, 1fr));
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		width: 100%;
+
+		&__item {
+			margin: 0 20px;
+		}
+
+		&:empty {
+			position: relative;
+			border-radius: 5px;
+			height: 250px;
+			background-color: var(--app-empty);
+			opacity: 0.8;
+
+			&::before {
+				@include adaptive("font-size", 1400, 375, 30, 18);
+
+				content: "empty";
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				font-weight: 800;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+				color: var(--app-empty);
+				transform: translate(-50%, -50%);
+			}
+		}
 	}
 
 	&_btn_not_active {
@@ -758,8 +783,6 @@
 @media (max-width: 1150px) {
 	.slider {
 		.teachers {
-			grid-template-columns: repeat(3, minmax(170px, 1fr));
-
 			&__item:nth-child(4) {
 				display: none;
 			}
@@ -770,9 +793,6 @@
 @media (max-width: 850px) {
 	.slider {
 		.teachers {
-			grid-column-gap: 0;
-			grid-template-columns: repeat(2, minmax(170px, 1fr));
-
 			&__item:nth-child(3) {
 				display: none;
 			}
@@ -783,8 +803,6 @@
 @media (max-width: 600px) {
 	.slider {
 		.teachers {
-			grid-template-columns: repeat(1, minmax(170px, 1fr));
-
 			&__item:nth-child(2) {
 				display: none;
 			}
