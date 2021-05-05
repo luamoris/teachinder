@@ -1,26 +1,25 @@
-// ================= START
-
 ;(() => {
-	'use strict';
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REQUIRE
 
-	// ======================================================= MODULES
-	const BurgerMenu = require('./modules/burger');
-	const Filter = require('./modules/filter');
+	// MODULES
+	const TeachersList = require('./modules/teachers/teachersList');
 
-	// ============================ BURGER MENU
-	const menuElms = document.querySelectorAll('.menu');
-	menuElms.forEach((menu) => {
-		const burgerMenu = new BurgerMenu(menu);
-		burgerMenu.start();
-	});
+	// FUNCTIONS
+	const Process = require('./process');
 
-	// ============================ FILTER
-	const filterElm = document.querySelector('.filter');
-	const filter = new Filter(filterElm);
-	filter.start();
+	// DATA
+	const { randomUserMock, additionalUsers } = require('../data/mock');
 
-	// ============================ TEACHERS
-	require('./teachers');
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DOM ELEMENTS
 
-	// ============================ MAIN
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ JS VARIABLES
+
+	const teacherDataList = Process.usersFormatting([...randomUserMock, ...additionalUsers]);
+	const teachersList = new TeachersList('topTeachersListBox', teacherDataList);
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN
+
+	teachersList.applyListElements();
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ END
 })();

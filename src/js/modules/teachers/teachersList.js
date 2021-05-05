@@ -6,7 +6,10 @@ const TeacherFavoriteList = require('./teacherFavoriteList');
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TEACHERS LIST
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+// Teacher Card Popup
 const popupCardTeacher = new PopupCardTeacher('wrapper', 'teachinderInfocard', 'person__');
+
+// Teacher Favorite List
 const teacherFavoriteList = new TeacherFavoriteList('favoriteTeachersList');
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,36 +37,63 @@ class TeachersList {
 		const liElm = document.createElement('li');
 		liElm.className = className.trim();
 		liElm.innerHTML = TeachersList.createHtmlTeacher(teacher);
-		liElm.onclick = () => TeachersList.onClickLiElement(liElm, teacher);
 		return liElm;
+	}
+
+	static createFavoritesLiElm(liElm, teacher) {
+		const cloneTeacherLiEml = TeachersList.createLiElement(teacher);
+		cloneTeacherLiEml.onclick = () => {
+			liElm.classList.toggle('teachers_favorite');
+			TeachersList.onClickLiElement(cloneTeacherLiEml, teacher);
+		};
+		return cloneTeacherLiEml;
+	}
+
+	static addTeacherToFavorites(liElm, teacher) {
+		const cloneTeacherLiEml = TeachersList.createFavoritesLiElm(liElm, teacher);
+		teacherFavoriteList.addTeacher(cloneTeacherLiEml, teacher.id);
+		teacherFavoriteList.updateListElements();
+	}
+
+	static onClickFavorite(liElm, teacher) {
+		liElm.classList.toggle('teachers_favorite');
+		const cloneTeacherLiEml = TeachersList.createFavoritesLiElm(liElm, teacher);
+		teacherFavoriteList.onClick(cloneTeacherLiEml, teacher);
 	}
 
 	static onClickLiElement(liElm, teacher) {
 		popupCardTeacher.setTeacherData(teacher);
-		popupCardTeacher.favCallback = () => teacherFavoriteList
-			.onClick(TeachersList.createLiElement(teacher), teacher);
+		popupCardTeacher.favCallback = () => TeachersList.onClickFavorite(liElm, teacher);
 		popupCardTeacher.init();
 	}
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	constructor(teachers) {
+	constructor(listId, teachers) {
+		this.teachersElm = document.getElementById(listId);
+		if (this.list instanceof HTMLElement) {
+			throw Error(`An element with this id: ${listId} was not found.`);
+		}
 		this.teachers = teachers;
-		this.listElms = null;
+		this.listElm = null;
 	}
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	get ListElements() {
-		if (!this.listElms) {
-			this.listElms = document.createElement('ul');
-			this.listElms.classList.add('teachers');
+	applyListElements() {
+		if (!this.listElm) {
+			this.listElm = document.createElement('ul');
+			this.listElm.classList.add('teachers');
 			this.teachers.forEach((teacher) => {
 				const teacherLiElm = TeachersList.createLiElement(teacher);
-				this.listElms.appendChild(teacherLiElm);
+				teacherLiElm.onclick = () => TeachersList.onClickLiElement(teacherLiElm, teacher);
+				this.listElm.appendChild(teacherLiElm);
+				if (teacher.favorite) {
+					TeachersList.addTeacherToFavorites(teacherLiElm, teacher);
+				}
 			});
 		}
-		return this.listElms;
+		this.teachersElm.appendChild(this.listElm);
 	}
 }
 
