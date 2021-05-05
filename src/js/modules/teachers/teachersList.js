@@ -5,6 +5,7 @@ const { getHTMLElement } = require('../dom');
 
 const PopupCardTeacher = require('../popup/popupCardTeacher');
 const TeacherFavoriteList = require('./teacherFavoriteList');
+const TeachersTableList = require('./teachersTableList');
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TEACHERS LIST
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,7 +56,10 @@ class TeachersList {
 	constructor(listId, teachers) {
 		this.teachersElm = getHTMLElement(document, listId, 'id');
 		this.teachers = Process.usersFormatting(teachers);
+		// ~~~
 		this.teacherFavoriteList = new TeacherFavoriteList('favoriteTeachersList');
+		this.tableList = new TeachersTableList('statisticsTable');
+		// ~~~
 		this.listElm = null;
 		this.listFiltered = null;
 	}
@@ -110,12 +114,14 @@ class TeachersList {
 		this.listElm = this.createTeacherList(this.teachers);
 		this.listElm.firstChild && this.teachersElm.appendChild(this.listElm);
 		this.teachers.forEach((teacher) => {
+			this.tableList.add(teacher);
 			if (teacher.favorite) {
 				const teacherLiElm = this.createFavoritesLiElm(teacher);
 				this.teacherFavoriteList.add(teacherLiElm);
 				this.teacherFavoriteList.updateListElements();
 			}
 		});
+		this.tableList.updateTable();
 	}
 
 	applyFilterElements(opts = {}) {
