@@ -1,5 +1,8 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+const Process = require('../process');
+const { getHTMLElement } = require('../dom');
+
 const PopupCardTeacher = require('../popup/popupCardTeacher');
 const TeacherFavoriteList = require('./teacherFavoriteList');
 
@@ -8,9 +11,6 @@ const TeacherFavoriteList = require('./teacherFavoriteList');
 
 // Teacher Card Popup
 const popupCardTeacher = new PopupCardTeacher('wrapper', 'teachinderInfocard', 'person__');
-
-// Teacher Favorite List
-const teacherFavoriteList = new TeacherFavoriteList('favoriteTeachersList');
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -35,64 +35,106 @@ class TeachersList {
 	static createLiElement(teacher) {
 		const className = `teachers__item ${teacher.favorite ? 'teachers_favorite' : ''}`;
 		const liElm = document.createElement('li');
+		liElm.dataset.id = teacher.id;
 		liElm.className = className.trim();
 		liElm.innerHTML = TeachersList.createHtmlTeacher(teacher);
 		return liElm;
 	}
 
-	static createFavoritesLiElm(liElm, teacher) {
-		const cloneTeacherLiEml = TeachersList.createLiElement(teacher);
-		cloneTeacherLiEml.onclick = () => {
-			liElm.classList.toggle('teachers_favorite');
-			TeachersList.onClickLiElement(cloneTeacherLiEml, teacher);
-		};
-		return cloneTeacherLiEml;
-	}
-
-	static addTeacherToFavorites(liElm, teacher) {
-		const cloneTeacherLiEml = TeachersList.createFavoritesLiElm(liElm, teacher);
-		teacherFavoriteList.addTeacher(cloneTeacherLiEml, teacher.id);
-		teacherFavoriteList.updateListElements();
-	}
-
-	static onClickFavorite(liElm, teacher) {
-		liElm.classList.toggle('teachers_favorite');
-		const cloneTeacherLiEml = TeachersList.createFavoritesLiElm(liElm, teacher);
-		teacherFavoriteList.onClick(cloneTeacherLiEml, teacher);
-	}
-
-	static onClickLiElement(liElm, teacher) {
-		popupCardTeacher.setTeacherData(teacher);
-		popupCardTeacher.favCallback = () => TeachersList.onClickFavorite(liElm, teacher);
-		popupCardTeacher.init();
+	static getTeacherElement(listElm, teacherId) {
+		let liElm = null;
+		if (listElm) {
+			listElm.childNodes.forEach((item) => {
+				liElm = (item.dataset.id === teacherId) ? item : liElm;
+			});
+		}
+		return liElm;
 	}
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	constructor(listId, teachers) {
-		this.teachersElm = document.getElementById(listId);
-		if (this.list instanceof HTMLElement) {
-			throw Error(`An element with this id: ${listId} was not found.`);
-		}
-		this.teachers = teachers;
+		this.teachersElm = getHTMLElement(document, listId, 'id');
+		this.teachers = Process.usersFormatting(teachers);
+		this.teacherFavoriteList = new TeacherFavoriteList('favoriteTeachersList');
 		this.listElm = null;
+		this.listFiltered = null;
 	}
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	applyListElements() {
-		if (!this.listElm) {
-			this.listElm = document.createElement('ul');
-			this.listElm.classList.add('teachers');
-			this.teachers.forEach((teacher) => {
-				const teacherLiElm = TeachersList.createLiElement(teacher);
-				teacherLiElm.onclick = () => TeachersList.onClickLiElement(teacherLiElm, teacher);
-				this.listElm.appendChild(teacherLiElm);
-				if (teacher.favorite) {
-					TeachersList.addTeacherToFavorites(teacherLiElm, teacher);
-				}
-			});
+	createTeacherList(teachers) {
+		const listElm = document.createElement('ul');
+		listElm.classList.add('teachers');
+		teachers.forEach((teacher) => {
+			const teacherLiElm = TeachersList.createLiElement(teacher);
+			teacherLiElm.onclick = () => this.onClickLiElement(teacher);
+			listElm.appendChild(teacherLiElm);
+		});
+		return listElm;
+	}
+
+	createFavoritesLiElm(teacher) {
+		const favoriteTeacherLiEml = TeachersList.createLiElement(teacher);
+		favoriteTeacherLiEml.onclick = () => this.onClickLiElement(teacher);
+		return favoriteTeacherLiEml;
+	}
+
+	onClickFavorite(isFavorite, teacher) {
+		const mainLiElm = TeachersList.getTeacherElement(this.listElm, teacher.id);
+		const filteredLiElm = TeachersList.getTeacherElement(this.listFiltered, teacher.id);
+		if (isFavorite) {
+			mainLiElm && mainLiElm.classList.add('teachers_favorite');
+			filteredLiElm && filteredLiElm.classList.add('teachers_favorite');
+			const cloneTeacherLiEml = this.createFavoritesLiElm(teacher);
+			this.teacherFavoriteList.add(cloneTeacherLiEml);
+		} else {
+			mainLiElm && mainLiElm.classList.remove('teachers_favorite');
+			filteredLiElm && filteredLiElm.classList.remove('teachers_favorite');
+			this.teacherFavoriteList.remove(teacher.id);
 		}
+		this.teacherFavoriteList.updateListElements();
+	}
+
+	onClickLiElement(teacher) {
+		popupCardTeacher.setTeacherData(teacher);
+		popupCardTeacher.favCallback = (isFavorite) => this.onClickFavorite(isFavorite, teacher);
+		popupCardTeacher.init();
+	}
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	setListElements() {
+		if (this.listElm) return;
+		this.listElm = this.createTeacherList(this.teachers);
+		this.listElm.firstChild && this.teachersElm.appendChild(this.listElm);
+		this.teachers.forEach((teacher) => {
+			if (teacher.favorite) {
+				const teacherLiElm = this.createFavoritesLiElm(teacher);
+				this.teacherFavoriteList.add(teacherLiElm);
+				this.teacherFavoriteList.updateListElements();
+			}
+		});
+	}
+
+	applyFilterElements(opts = {}) {
+		if (this.teachersElm.firstChild === this.listElm) {
+			this.teachersElm.removeChild(this.listElm);
+		} else if (this.teachersElm.firstChild === this.listFiltered) {
+			this.teachersElm.removeChild(this.listFiltered);
+		}
+		const teacherFiltered = Process.FilterUsers(this.teachers, opts);
+		this.listFiltered = this.createTeacherList(teacherFiltered);
+		this.teachersElm.appendChild(this.listFiltered);
+	}
+
+	resetFilterElements() {
+		if (this.teachersElm.firstChild === this.listElm) return;
+		if (!this.listElm) {
+			this.setListElements();
+		}
+		this.listFiltered && this.teachersElm.removeChild(this.listFiltered);
 		this.teachersElm.appendChild(this.listElm);
 	}
 }

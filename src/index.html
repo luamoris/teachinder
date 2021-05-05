@@ -75,24 +75,25 @@
 						<!-- BODY -->
 						<div class="section__content">
 							<!-- FILTER -->
-							<div class="filter">
-								<span class="filter__button">filter by</span>
+							<div id="mainFilter" class="filter">
+								<span id="mainFilterBtn" class="filter__button">filter by</span>
 								<div class="options">
 									<form class="options__body" action="#">
 										<div class="options__item">
 											<select name="country" id="filterCountry" class="options__input select__input">
+												<option value="" selected>All</option>
 												<option value="Denmark">Denmark</option>
 												<option value="England">England</option>
 												<option value="Estonia">Estonia</option>
 												<option value="Latvia">Latvia</option>
 												<option value="Norway">Norway</option>
 												<option value="Finland">Finland</option>
-												<option value="Ukraine" selected >Ukraine</option>
+												<option value="Ukraine">Ukraine</option>
 											</select>
 											<label for="filterCountry" class="options__label select__label">country</label>
 										</div>
 										<div class="options__item">
-											<input id="filterAge" class="options__input number__input" type="number" name="age" value="18" max="70" min="18">
+											<input id="filterAge" class="options__input number__input" type="number" name="age" max="70" min="18">
 											<label for="filterAge" class="options__label number__label">age</label>
 										</div>
 										<div class="options__item">

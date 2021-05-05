@@ -1,3 +1,7 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+const { getHTMLElement } = require('../dom');
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TEACHER FAVORITE LIST
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -21,10 +25,7 @@ class TeacherFavoriteList {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	constructor(listId) {
-		this.ulList = document.getElementById(listId);
-		if (this.list instanceof HTMLElement) {
-			throw Error(`An element with this id: ${listId} was not found.`);
-		}
+		this.ulList = getHTMLElement(document, listId, 'id');
 		this.list = {};
 		this.count = 0;
 		this.countVisible = 0;
@@ -33,11 +34,23 @@ class TeacherFavoriteList {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	addTeacher(liElm, teacherId) {
+	add(liElm) {
+		const teacherId = liElm.dataset.id;
 		this.list[teacherId] = {};
 		this.list[teacherId].element = liElm;
 		this.list[teacherId].visible = false;
 		this.count++;
+	}
+
+	remove(teacherId) {
+		const teacher = this.list[teacherId];
+		if (!teacher) return;
+		if (teacher.visible) {
+			this.ulList.removeChild(teacher.element);
+			this.countVisible--;
+		}
+		delete this.list[teacherId];
+		this.count--;
 	}
 
 	updateListElements() {
@@ -63,29 +76,6 @@ class TeacherFavoriteList {
 			this.ulList.removeChild(teacherItem.element);
 			this.countVisible--;
 		}
-	}
-
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-	onClick(liElm, teacher) {
-		const teacherItem = this.list[teacher.id];
-		if (teacher.favorite) {
-			if (teacherItem) {
-				teacherItem.visible = false;
-			} else {
-				this.addTeacher(liElm, teacher.id);
-			}
-		} else {
-			if (!teacherItem) return;
-			if (teacherItem.visible) {
-				this.ulList.removeChild(teacherItem.element);
-				this.countVisible--;
-			}
-			delete this.list[teacher.id];
-			this.count--;
-		}
-		this.updateListElements();
 	}
 }
 

@@ -1,31 +1,17 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+const { getHTMLElement } = require('../dom');
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ POPUP
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Popup {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-	static getHTMLElement(root, selector, type) {
-		let element = null;
-		if (type === 'class') {
-			element = root.querySelector(`.${selector}`);
-		} else if (type === 'id') {
-			element = root.getElementById(selector);
-		} else if (type === 'tag') {
-			element = root.querySelector(selector);
-			if (element instanceof SVGElement) return element;
-		}
-		// ===
-		if (element instanceof HTMLElement) return element;
-		throw Error(`An element "${selector}" with this ${type} was not found.`);
-	}
-
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	constructor(wrapperId, popupId) {
-		this.wrapper = Popup.getHTMLElement(document, wrapperId, 'id');
-		this.popup = Popup.getHTMLElement(document, popupId, 'id');
-		this.close = Popup.getHTMLElement(this.popup, 'close', 'class');
+		this.wrapper = getHTMLElement(document, wrapperId, 'id');
+		this.popup = getHTMLElement(document, popupId, 'id');
+		this.close = getHTMLElement(this.popup, 'close', 'class');
 		// ===
 		this.subScroll = this.wrapper.querySelector('.scroll_hidden');
 		if (!this.subScroll) {

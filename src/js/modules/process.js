@@ -11,9 +11,11 @@ const createUser = (user, index) => {
 	};
 	const defaultId = 1000000000;
 	const id = get('id') || `${get('id', 'name') || ''}${get('id', 'value') || ''}`;
+	const userGender = get('gender');
+	const gender = userGender ? userGender.charAt(0).toUpperCase() : '';
 	return {
 		id: id || `NEW${defaultId + index}`,
-		gender: get('gender'),
+		gender,
 		title: get('title') || get('name', 'title'),
 		full_name: get('full_name') || `${get('name', 'first') || ''} ${get('name', 'last') || ''}`.trim(),
 		state: get('state') || get('location', 'state'),

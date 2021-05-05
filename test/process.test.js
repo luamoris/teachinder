@@ -25,7 +25,7 @@ const {
 	SearchUser,
 	// Percent
 	GetPercentItemsSearch,
-} = require('../src/js/process');
+} = require('../src/js/modules/process');
 
 /* =======================================================
 	1. Array of objects

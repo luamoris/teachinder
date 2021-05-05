@@ -1,6 +1,6 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const Process = require('./process');
+const Process = require('./modules/process');
 
 const Filter = require('./md/filter');
 const Teacher = require('./md/teacher');
