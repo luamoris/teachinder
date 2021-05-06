@@ -24,7 +24,7 @@ class TeachersList {
 		const initials = teacher.full_name.split(' ').reduce((res, item) => `${res}${item.charAt(0)}.`, '');
 		const country = teacher.country || 'world';
 		const photo = teacher.picture_large
-			? `<div class="avatar__picture"><img src="${teacher.picture_large}"></div>`
+			? `<div class="avatar__picture"><img src="${teacher.picture_large}" alt=""></div>`
 			: `<div class="avatar__initials"><h3>${initials}</h3></div>`;
 		let html = '';
 		html += `<div class="avatar">${photo}</div>`;

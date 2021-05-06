@@ -45,15 +45,17 @@
 	overflow: hidden;
 }
 
-body.popup_active {
-	.scroll_hidden {
-		display: block;
+@media (min-width: 1024px) {
+	body.popup_active {
+		.scroll_hidden {
+			display: block;
+		}
 	}
 }
 
 // =============== @MEDIA
 
-@media screen and  (max-width: 768px) {
+@media (max-width: 768px) {
 	.app {
 		.container {
 			padding: 0;
