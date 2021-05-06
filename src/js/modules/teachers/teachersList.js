@@ -112,9 +112,9 @@ class TeachersList {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	clear() {
-		if (this.teachersElm.firstChild === this.listElm) {
+		if (this.listElm && this.teachersElm.firstChild === this.listElm) {
 			this.teachersElm.removeChild(this.listElm);
-		} else if (this.teachersElm.firstChild === this.listFiltered) {
+		} else if (this.listFiltered && this.teachersElm.firstChild === this.listFiltered) {
 			this.teachersElm.removeChild(this.listFiltered);
 		}
 	}
