@@ -2,7 +2,7 @@
 	Require
 ========================================================== */
 
-const { randomUserMock, additionalUsers } = require('./mock.js');
+const { randomUserMock, additionalUsers } = require('../src/data/mock');
 
 /* =======================================================
 	Functions
@@ -25,7 +25,7 @@ const {
 	SearchUser,
 	// Percent
 	GetPercentItemsSearch,
-} = require('./main');
+} = require('../src/js/modules/process');
 
 /* =======================================================
 	1. Array of objects
@@ -321,8 +321,8 @@ describe('#5. Search', () => {
 
 		expect(fun({ name: 'even', note: 'gl gl' })).toBe(getJSON({ name: 'even', note: 'gl gl', age: 39 }));
 		expect(fun({ note: 'iv iv', age: 76 })).toBe(getJSON({ name: 'ivan', note: 'iv iv', age: 76 }));
-		expect(fun({ note: 'iracli', age: 18 })).toBe(getJSON({}));
-		expect(fun({})).toBe(getJSON({}));
+		expect(fun({ note: 'iracli', age: 18 })).toBe(getJSON(null));
+		expect(fun({})).toBe(getJSON(null));
 	});
 });
 

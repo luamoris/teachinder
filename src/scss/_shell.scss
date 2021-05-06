@@ -1,0 +1,62 @@
+// ================================================== SHELL
+
+#wrapper {
+	display: flex;
+	overflow: hidden;
+	width: 100%;
+	min-width: $minWidth;
+	min-height: 100vh;
+	background-color: var(--app);
+}
+
+.scroll_hidden {
+	display: none;
+	width: 22px;
+	height: 0;
+	background-color: transparent;
+	opacity: 0;
+}
+
+.app {
+	width: 100%;
+
+	.container {
+		margin: 0 auto;
+		padding: 0 10px;
+		max-width: $container;
+	}
+
+	&__body {
+		width: 100%;
+		min-height: 100vh;
+		background-color: var(--app-body);
+	}
+}
+
+.app_restrictions {
+	@include adaptive("padding-top", 1440, 768, 40, 20);
+	@include adaptive("padding-right", 1440, 768, 100, 10);
+	@include adaptive("padding-bottom", 1440, 768, 50, 20);
+	@include adaptive("padding-left", 1440, 768, 100, 10);
+
+	display: grid;
+	grid-row-gap: 30px;
+	grid-template: minmax(0, auto) 1fr minmax(0, auto) / 1fr;
+	overflow: hidden;
+}
+
+body.popup_active {
+	.scroll_hidden {
+		display: block;
+	}
+}
+
+// =============== @MEDIA
+
+@media screen and  (max-width: 768px) {
+	.app {
+		.container {
+			padding: 0;
+		}
+	}
+}

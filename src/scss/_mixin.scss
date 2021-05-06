@@ -1,21 +1,17 @@
+// ================================================== MIXIN
 
-// ==================================================================== FLEXBOX
+// ============================== ADAPTIVE
 
-@mixin flexbox($justify, $align, $direction: row) {
-	display: flex;
-	flex-direction: $direction;
+@mixin adaptive($property, $startWidth, $endWidth, $maxValue, $minValue) {
+	#{$property}: $maxValue + px;
 
-	@if $justify == flex-start {
-		justify-content: flex-start;
-	} @else {
-		justify-content: $justify;
+	$ratio: #{$maxValue - $minValue};
+
+	@media (max-width: #{$startWidth + px}) {
+		#{$property}: calc(#{$minValue + px} + #{$ratio} * ((100vw - #{$endWidth + px}) / (#{$startWidth - $endWidth})));
 	}
 
-	@if $align == flex-start {
-		align-items: flex-start;
-	} @else {
-		align-items: $align;
+	@media (max-width: #{$endWidth + px}) {
+		#{$property}: $minValue + px;
 	}
 }
-
-// ==================================================================== FLEXBOX

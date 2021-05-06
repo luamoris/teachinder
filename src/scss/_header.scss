@@ -1,0 +1,128 @@
+// ================================================== HEADER
+
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.panel {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 40px;
+	width: 100%;
+}
+
+.logo {
+	border-radius: 5px;
+	padding: 10px 20px;
+	background-color: var(--logo-bg);
+
+	span {
+		font-weight: 800;
+		font-size: 40px;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		color: var(--logo);
+		user-select: none;
+	}
+}
+
+.search {
+	.form {
+		display: flex;
+
+		&_flexbox {
+			display: flex;
+			height: 40px;
+		}
+
+		&__input {
+			margin-right: 10px;
+			border-radius: 2px;
+			padding: 5px 10px;
+			height: 100%;
+			font-weight: 500;
+			letter-spacing: 0.05em;
+			color: var(--input-text);
+			background-color: var(--input-bg);
+
+			&_name {
+				width: 100px;
+			}
+
+			&_note {
+				width: 150px;
+			}
+
+			&_age {
+				width: 100px;
+			}
+
+			&:focus {
+				background-color: var(--input-bg-hover);
+			}
+		}
+
+		&__button {
+			width: 90px;
+			height: 100%;
+			font-size: 12px;
+		}
+	}
+}
+
+// =============== @MEDIA
+
+@media screen and (max-width: 1024px) {
+	.logo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 20px;
+		width: 100%;
+
+		span {
+			font-size: 30px;
+		}
+	}
+
+	.panel {
+		flex-direction: column;
+		margin-bottom: 20px;
+	}
+
+	.search {
+		width: 100%;
+
+		.form {
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+
+			&_flexbox {
+				margin-bottom: 10px;
+				width: 100%;
+			}
+
+			&__input {
+				margin-right: 5px;
+
+				&_name {
+					flex: 1 1 70%;
+				}
+
+				&_note {
+					width: 100%;
+				}
+
+				&_age {
+					flex: 1 1 30%;
+					margin: 0;
+				}
+			}
+		}
+	}
+}
