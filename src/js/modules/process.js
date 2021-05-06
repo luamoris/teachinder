@@ -179,7 +179,7 @@ const checkForCompliance = (user, opts) => {
 };
 
 function SearchUser(users, opts) {
-	return users.find((user) => checkForCompliance(user, opts)) || {};
+	return users.find((user) => checkForCompliance(user, opts)) || null;
 }
 
 /* =======================================================

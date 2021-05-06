@@ -70,11 +70,13 @@ class TeachersList {
 	createTeacherList(teachers) {
 		const listElm = document.createElement('ul');
 		listElm.classList.add('teachers');
-		teachers.forEach((teacher) => {
-			const teacherLiElm = TeachersList.createLiElement(teacher);
-			teacherLiElm.onclick = () => this.onClickLiElement(teacher);
-			listElm.appendChild(teacherLiElm);
-		});
+		if (teachers.length > 0) {
+			teachers.forEach((teacher) => {
+				const teacherLiElm = TeachersList.createLiElement(teacher);
+				teacherLiElm.onclick = () => this.onClickLiElement(teacher);
+				listElm.appendChild(teacherLiElm);
+			});
+		}
 		return listElm;
 	}
 
@@ -109,6 +111,14 @@ class TeachersList {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	clear() {
+		if (this.teachersElm.firstChild === this.listElm) {
+			this.teachersElm.removeChild(this.listElm);
+		} else if (this.teachersElm.firstChild === this.listFiltered) {
+			this.teachersElm.removeChild(this.listFiltered);
+		}
+	}
+
 	add(teacherData) {
 		const teacher = Process.createUser(teacherData, this.teachers.length + 1);
 		const teacherLiElm = TeachersList.createLiElement(teacher);
@@ -135,24 +145,32 @@ class TeachersList {
 	}
 
 	applyFilterElements(opts = {}) {
+		this.clear();
 		if (!Object.keys(opts).length) {
 			this.resetFilterElements();
+		} else {
+			const teacherFiltered = Process.FilterUsers(this.teachers, opts);
+			this.listFiltered = this.createTeacherList(teacherFiltered);
+			this.listFiltered.firstChild && this.teachersElm.appendChild(this.listFiltered);
 		}
-		if (this.teachersElm.firstChild === this.listElm) {
-			this.teachersElm.removeChild(this.listElm);
-		} else if (this.teachersElm.firstChild === this.listFiltered) {
-			this.teachersElm.removeChild(this.listFiltered);
-		}
-		const teacherFiltered = Process.FilterUsers(this.teachers, opts);
-		this.listFiltered = this.createTeacherList(teacherFiltered);
-		if (this.listFiltered.firstChild) {
-			this.teachersElm.appendChild(this.listFiltered);
+	}
+
+	applySearchElements(opts = {}) {
+		this.clear();
+		if (!Object.keys(opts).length) {
+			this.resetFilterElements();
+		} else {
+			const teacher = [];
+			const teacherSearched = Process.SearchUser(this.teachers, opts);
+			teacherSearched && teacher.push(teacherSearched);
+			this.listFiltered = this.createTeacherList(teacher);
+			this.listFiltered.firstChild && this.teachersElm.appendChild(this.listFiltered);
 		}
 	}
 
 	resetFilterElements() {
-		this.listFiltered && this.teachersElm.removeChild(this.listFiltered);
-		this.setListElements();
+		this.clear();
+		this.listElm.firstChild && this.teachersElm.appendChild(this.listElm);
 	}
 }
 
