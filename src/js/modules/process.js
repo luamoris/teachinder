@@ -31,7 +31,7 @@ const createUser = (user, index) => {
 		},
 		email: get('email'),
 		b_date: get('b_day') || get('dob', 'date'),
-		age: get('dob', 'age'),
+		age: get('age') || get('dob', 'age'),
 		phone: get('phone'),
 		picture_large: get('picture_large') || get('picture', 'large'),
 		picture_thumbnail: get('picture_thumbnail') || get('picture', 'medium'),
@@ -195,6 +195,7 @@ function GetPercentItemsSearch(users, opts) {
 
 module.exports = {
 	// Formation
+	createUser,
 	usersFormatting,
 	// Validation
 	validString,

@@ -145,6 +145,7 @@ class TeachersTableList {
 		// ~~~
 		const page = this.pagination.querySelector(`.pagination__link[data-value="${number}"]`);
 		this.pagination.dataset.current = number;
+		this.page.current = number;
 		page.classList.add('pagination_current');
 		this.setupPage(number);
 		if (window.innerWidth < 768) {

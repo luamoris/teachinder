@@ -109,6 +109,16 @@ class TeachersList {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	add(teacherData) {
+		const teacher = Process.createUser(teacherData, this.teachers.length + 1);
+		const teacherLiElm = TeachersList.createLiElement(teacher);
+		this.teachers.push(teacher);
+		this.listElm.appendChild(teacherLiElm);
+		teacherLiElm.onclick = () => this.onClickLiElement(teacher);
+		this.tableList.add(teacher);
+		this.tableList.setupPage(this.tableList.page.current);
+	}
+
 	setListElements() {
 		if (this.listElm) return;
 		this.listElm = this.createTeacherList(this.teachers);
@@ -125,6 +135,9 @@ class TeachersList {
 	}
 
 	applyFilterElements(opts = {}) {
+		if (!Object.keys(opts).length) {
+			this.resetFilterElements();
+		}
 		if (this.teachersElm.firstChild === this.listElm) {
 			this.teachersElm.removeChild(this.listElm);
 		} else if (this.teachersElm.firstChild === this.listFiltered) {
@@ -132,16 +145,14 @@ class TeachersList {
 		}
 		const teacherFiltered = Process.FilterUsers(this.teachers, opts);
 		this.listFiltered = this.createTeacherList(teacherFiltered);
-		this.teachersElm.appendChild(this.listFiltered);
+		if (this.listFiltered.firstChild) {
+			this.teachersElm.appendChild(this.listFiltered);
+		}
 	}
 
 	resetFilterElements() {
-		if (this.teachersElm.firstChild === this.listElm) return;
-		if (!this.listElm) {
-			this.setListElements();
-		}
 		this.listFiltered && this.teachersElm.removeChild(this.listFiltered);
-		this.teachersElm.appendChild(this.listElm);
+		this.setListElements();
 	}
 }
 

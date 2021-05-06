@@ -38,8 +38,8 @@
 					</div>
 
 					<!-- MENU -->
-					<nav class="menu menu_red">
-						<div class="burger">
+					<nav id="headerMenu" class="menu menu_red">
+						<div id="headerMenuBurger" class="burger">
 							<span class="burger__line"></span>
 						</div>
 						<div class="menu__body">
@@ -136,78 +136,11 @@
 											<th class="btn-nationality">Nationality</th>
 										</tr>
 									</thead>
-									<tbody>
-										<!-- <tr>
-											<td data-title="Name">Daisy Alexander</td>
-											<td data-title="Age">28</td>
-											<td data-title="Gender">Female</td>
-											<td data-title="Nationality">Vietnam</td>
-										</tr>
-										<tr>
-											<td data-title="Name">Julia Bradley</td>
-											<td data-title="Age">26</td>
-											<td data-title="Gender">Female</td>
-											<td data-title="Nationality">USA</td>
-										</tr>
-										<tr>
-											<td data-title="Name">Rita Hart</td>
-											<td data-title="Age">41</td>
-											<td data-title="Gender">Female</td>
-											<td data-title="Nationality">Ireland</td>
-										</tr>
-										<tr>
-											<td data-title="Name">Jonathan Jacobs</td>
-											<td data-title="Age">32</td>
-											<td data-title="Gender">Male</td>
-											<td data-title="Nationality">England</td>
-										</tr>
-										<tr>
-											<td data-title="Name">Nathaniel White</td>
-											<td data-title="Age">37</td>
-											<td data-title="Gender">Male</td>
-											<td data-title="Nationality">Austria</td>
-										</tr>
-										<tr>
-											<td data-title="Name">Frank Medina</td>
-											<td data-title="Age" data-title="Age">43</td>
-											<td data-title="Gender">Male</td>
-											<td data-title="Nationality">Italy</td>
-										</tr>
-										<tr>
-											<td data-title="Name">Ella Curtis</td>
-											<td data-title="Age">34</td>
-											<td data-title="Gender">Female</td>
-											<td data-title="Nationality">USA</td>
-										</tr>
-										<tr>
-											<td data-title="Name">Claire Simmons</td>
-											<td data-title="Age">38</td>
-											<td data-title="Gender">Female</td>
-											<td data-title="Nationality">Netherlands</td>
-										</tr>
-										<tr>
-											<td data-title="Name">Benjamin Knight</td>
-											<td data-title="Age">44</td>
-											<td data-title="Gender">Male</td>
-											<td data-title="Nationality">Scotland</td>
-										</tr>
-										<tr>
-											<td data-title="Name">Norman Rose</td>
-											<td data-title="Age">36</td>
-											<td data-title="Gender">Female</td>
-											<td data-title="Nationality">France</td>
-										</tr> -->
-									</tbody>
+									<tbody></tbody>
 									<tfoot>
 										<tr>
 											<td colspan="4" rowspan="2">
-												<div class="pagination">
-													<!-- <span class="pagination__link pagination_current" data-value="1">1</span>
-													<span class="pagination__link" data-value="2">2</span>
-													<span class="pagination__link" data-value="3">3</span>
-													<span class="pagination_points">...</span>
-													<span class="pagination__link pagination_last" data-value="0">last</span> -->
-												</div>
+												<div class="pagination"></div>
 											</td>
 										</tr>
 									</tfoot>
@@ -276,8 +209,8 @@
 				<!-- FOOTER -->
 				<footer class="footer">
 					<!-- MENU -->
-					<nav class="menu menu_blue">
-						<div class="burger">
+					<nav id="footerMenu" class="menu menu_blue">
+						<div id="footerMenuBurger" class="burger">
 							<span class="burger__line"></span>
 						</div>
 						<div class="menu__body">
@@ -429,30 +362,30 @@
 							<!-- NAME -->
 							<div class="form__point">
 								<label for="formName" class="form__label">fullname</label>
-								<input id="formName" class="form__input" name="fullname" type="text" pattern="^([\p{Lu}]{1}[\p{Ll}]+\s?)+$"
+								<input id="formName" class="form__input" name="full_name" type="text" pattern="^([\p{Lu}]{1}[\p{Ll}]+\s?)+$"
 									placeholder="Enter name" required>
 							</div>
 							<!-- COUNTRY -->
 							<div class="form__point">
 								<label for="formCountry" class="form__label">country</label>
 								<select id="formCountry" class="form__input form__select" name="country">
-									<option value="denmark">Denmark</option>
-									<option value="england">England</option>
-									<option value="estonia">Estonia</option>
-									<option value="latvia">Latvia</option>
-									<option value="ukraine" selected>Ukraine</option>
+									<option value="Denmark">Denmark</option>
+									<option value="England">England</option>
+									<option value="Estonia">Estonia</option>
+									<option value="Latvia">Latvia</option>
+									<option value="Ukraine" selected>Ukraine</option>
 								</select>
 							</div>
 							<!-- CITY -->
 							<div class="form__point">
 								<label for="formCity" class="form__label">city</label>
-								<input id="formCity" class="form__input" name="city" type="text" pattern="^[\p{Lu}]{1}[\p{Ll}]+$"
+								<input id="formCity" class="form__input" name="state" type="text" pattern="^[\p{Lu}]{1}[\p{Ll}]+$"
 									placeholder="Enter city" required>
 							</div>
 							<!-- PHONE -->
 							<div class="form__point">
 								<label for="formPhone" class="form__label">phone</label>
-								<input id="formPhone" class="form__input" name="mobile" type="tel"
+								<input id="formPhone" class="form__input" name="phone" type="tel"
 									pattern="(\+)?([- _():=+]?\d[- _():=+]?){10,14}" placeholder="Enter phone" required>
 							</div>
 							<!-- EMAIL -->
@@ -464,19 +397,19 @@
 							<!-- DATA BIRTHDAY -->
 							<div class="form__point">
 								<label for="formDate" class="form__label">birthday</label>
-								<input id="formDate" class="form__input" name="date" type="date" value="2003-01-01" required>
+								<input id="formDate" class="form__input" name="b_day" type="date" value="2003-01-01" required>
 							</div>
 							<!-- SEX -->
 							<div class="form__point form__radio">
 								<div class="form__label">sex</div>
 								<div class="radio-options">
 									<div class="radio-options__item">
-										<input id="formSexMale" class="radio-options__input radio-options_hidden" type="radio" name="sex" value="male"
+										<input id="formSexMale" class="radio-options__input radio-options_hidden" type="radio" name="gender" value="Male"
 											checked>
 										<label for="formSexMale" class="radio-options__label">male</label>
 									</div>
 									<div class="radio-options__item">
-										<input id="formSexFemale" class="radio-options__input radio-options_hidden" type="radio" name="sex" value="female">
+										<input id="formSexFemale" class="radio-options__input radio-options_hidden" type="radio" name="gender" value="Female">
 										<label for="formSexFemale" class="radio-options__label">female</label>
 									</div>
 								</div>
@@ -484,7 +417,7 @@
 							<!-- COLOR -->
 							<div class="form__point form__color">
 								<label for="formColor" class="form__label">color</label>
-								<input id="formColor" class="form__input" name="color" type="color" value="#65A3BE" required>
+								<input id="formColor" class="form__input" name="bg_color" type="color" value="#65A3BE" required>
 							</div>
 						</div>
 						<!-- CREATE BTN -->
