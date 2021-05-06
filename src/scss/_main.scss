@@ -289,6 +289,14 @@
 	}
 }
 
+@media (max-width: 374px) {
+	.top-teachers {
+		.teachers {
+			grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		}
+	}
+}
+
 .teachers {
 	&__item {
 		display: flex;

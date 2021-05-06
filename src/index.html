@@ -3,11 +3,15 @@
 
 <head>
 
-	<meta charset="utf-8">
-	<meta name="author" content="Iosif Isachko (@luamoris)">
+	<meta charset="UTF-8" />
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta name="msapplication-tap-highlight" content="no">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="white">
+	<meta name="description" content="Teacher search web site.">
+	<meta name="robots" content="index,follow">
+	<meta rel="me" content="Iosif Isachko (@luamoris)">
+	<link rel="me" href="mailto:yaiosifua@gmail.com">
+	<meta name="msapplication-tap-highlight" content="no">
 	<title>Teachinder</title>
 
 </head>
@@ -144,8 +148,8 @@
 									</thead>
 									<tbody></tbody>
 									<tfoot>
-										<tr>
-											<td colspan="4" rowspan="2">
+										<tr rowspan="2">
+											<td colspan="4">
 												<div class="pagination"></div>
 											</td>
 										</tr>
@@ -288,10 +292,10 @@
 								</div>
 							</div>
 							<!-- LOCATION -->
-							<address class="person__item">
-								<span class="person-type">country:</span>
-								<h5 class="person__country">Ukraine</h5>
-							</address>
+							<div class="person__item">
+								<address class="person-type">country:</address>
+								<address class="person__country">Ukraine</address>
+							</div>
 							<div class="person__item">
 								<span class="person-type">city:</span>
 								<h5 class="person__city">Kyiv</h5>
@@ -362,7 +366,7 @@
 					<!-- FORM -->
 					<form class="form" action="#">
 						<!-- TITLE -->
-						<legend class="form__title">add teacher</legend>
+						<h1 class="form__title">add teacher</h1>
 						<!-- DATA CATALOG -->
 						<div class="form__catalog">
 							<!-- NAME -->
@@ -423,7 +427,7 @@
 							<!-- COLOR -->
 							<div class="form__point form__color">
 								<label for="formColor" class="form__label">color</label>
-								<input id="formColor" class="form__input" name="bg_color" type="color" value="#65A3BE" required>
+								<input id="formColor" class="form__input" name="bg_color" type="color" value="#65A3BE">
 							</div>
 						</div>
 						<!-- CREATE BTN -->
