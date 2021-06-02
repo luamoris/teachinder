@@ -1,5 +1,8 @@
-;(() => {
+(async () => {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REQUIRE
+
+	// API
+	const TeachersAPI = require('./api/teachers.api');
 
 	// MODULES
 	const Filter = require('./modules/filter/filter');
@@ -8,19 +11,20 @@
 	const TeachersList = require('./modules/teachers/teachersList');
 	const PopupAddTeacher = require('./modules/popup/popupAddTeacher');
 
-	// DATA
-	const { randomUserMock, additionalUsers } = require('../data/mock');
-
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DOM ELEMENTS
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ JS VARIABLES
+
+	// DATA
+	const teacherApi = new TeachersAPI('teachinder');
+	const randomTeachers = await teacherApi.getByQuantity(50);
 
 	const filter = new Filter('mainFilter', 'mainFilterBtn');
 	const searcher = new Search('headerSearch');
 	const headerMenuBurger = new MenuBurger('headerMenu', 'headerMenuBurger');
 	const footerMenuBurger = new MenuBurger('footerMenu', 'footerMenuBurger');
 	const popupAddTeacher = new PopupAddTeacher('wrapper', 'teachinderCreateTeacher');
-	const teachersList = new TeachersList('topTeachersListBox', [...randomUserMock, ...additionalUsers]);
+	const teachersList = new TeachersList('topTeachersListBox', [...randomTeachers]);
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FUNCTION
 
