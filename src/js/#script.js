@@ -4,7 +4,11 @@
 	// API
 	const TeachersAPI = require('./api/teachers.api');
 
+	// Database
+	const Database = require('./repositories/database');
+
 	// MODULES
+	const Process = require('./modules/process');
 	const Filter = require('./modules/filter/filter');
 	const Search = require('./modules/search/search');
 	const MenuBurger = require('./modules/menu/burger');
@@ -14,6 +18,9 @@
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DOM ELEMENTS
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ JS VARIABLES
+
+	// Database
+	const db = new Database();
 
 	// DATA
 	const teacherApi = new TeachersAPI({ seed: 'teachinder' });
@@ -68,6 +75,11 @@
 		teacherData.b_day = b_day.toISOString();
 		teacherData.age = today.getFullYear() - b_day.getFullYear();
 		teachersList.add(teacherData);
+
+		// server
+		const teacherValid = Process.createUser(teacherData);
+		delete teacherValid.id;
+		db.post(JSON.stringify(teacherValid));
 	}
 
 	function getCountryCode(country) {
@@ -99,7 +111,7 @@
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN
 
 	teachersList.setListElements();
-	popupAddTeacher.callback = (teacherData) => createTeacher(teacherData);
+	popupAddTeacher.applySubmit(createTeacher);
 	popupAddTeacher.addButtons(...document.querySelectorAll('.menu__button'));
 	filter.start(async (res) => {
 		const opts = createFilterOpts(res);
