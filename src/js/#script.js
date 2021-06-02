@@ -83,12 +83,15 @@
 
 	function createQueryOptions(opts) {
 		const results = {};
-		const { country, gender } = opts;
+		const { age, country, gender } = opts;
 		if (gender) {
 			results.gender = gender === 'F' ? 'female' : 'male';
 		}
 		if (country) {
 			results.nat = getCountryCode(country);
+		}
+		if (age) {
+			results.age = age;
 		}
 		return results;
 	}
@@ -120,6 +123,29 @@
 
 	headerMenuBurger.init();
 	footerMenuBurger.init();
+
+	// more
+
+	let countTeacher = randomTeachers.length;
+	const MAX_TEACHER = 100;
+
+	teachersList.activeMore(() => {
+		const limit = 10;
+		countTeacher += limit;
+		const page = Math.ceil(countTeacher / 10);
+		return Promise.resolve()
+			.then(() => teacherApi.getPageLimit({ page, limit }))
+			.then((teachers) => {
+				teachersList.addTeachers(teachers);
+				if (countTeacher === MAX_TEACHER) {
+					return Promise.resolve({ ok: false });
+				}
+				return Promise.resolve({ ok: true });
+			})
+			.catch((error) => {
+				console.error('Error: ', error);
+			});
+	});
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ END
 })();

@@ -279,6 +279,21 @@
 		}
 	}
 
+	&__button {
+		margin-top: 50px;
+		padding: 10px 30px;
+		cursor: pointer;
+
+		&.inactive {
+			cursor: pointer;
+			pointer-events: none;
+		}
+
+		&.not_work {
+			display: none;
+		}
+	}
+
 	.teachers {
 		@include adaptive("grid-column-gap", 1440, 1024, 40, 10);
 		@include adaptive("grid-row-gap", 1440, 1024, 40, 10);
