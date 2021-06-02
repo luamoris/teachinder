@@ -1,9 +1,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const {
-	getHTMLElement,
-	getFormData,
-} = require('../dom');
+const DomHelper = require('../../helpers/dom.helper');
+const { getFormData } = require('../dom');
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FILTER
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,10 +25,10 @@ class Filter {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	constructor(filterId, filterBtnId) {
-		this.filter = getHTMLElement(document, filterId, 'id');
-		this.btnActive = getHTMLElement(this.filter, `#${filterBtnId}`, 'tag');
-		this.form = getHTMLElement(this.filter, 'form', 'tag');
-		this.btnSubmit = getHTMLElement(this.form, 'button[type="submit"]', 'tag');
+		this.filter = DomHelper.getElement({ type: 'id', selector: filterId });
+		this.btnActive = DomHelper.getElement({ type: 'id', root: this.filter, selector: filterBtnId });
+		this.form = DomHelper.getElement({ root: this.filter, selector: 'form' });
+		this.btnSubmit = DomHelper.getElement({ root: this.form, selector: 'button[type="submit"]' });
 	}
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

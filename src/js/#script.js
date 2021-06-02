@@ -16,8 +16,8 @@
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ JS VARIABLES
 
 	// DATA
-	const teacherApi = new TeachersAPI('teachinder');
-	const randomTeachers = await teacherApi.getByQuantity(50);
+	const teacherApi = new TeachersAPI({ seed: 'teachinder' });
+	const randomTeachers = await teacherApi.getByQuantity({ quantity: 50 });
 
 	const filter = new Filter('mainFilter', 'mainFilterBtn');
 	const searcher = new Search('headerSearch');
@@ -70,14 +70,48 @@
 		teachersList.add(teacherData);
 	}
 
+	function getCountryCode(country) {
+		const countries = {
+			'Denmark': 'de',
+			'Estonia': 'es',
+			'Norway': 'no',
+			'Finland': 'fi',
+		};
+
+		return countries[country];
+	}
+
+	function createQueryOptions(opts) {
+		const results = {};
+		const { country, gender } = opts;
+		if (gender) {
+			results.gender = gender === 'F' ? 'female' : 'male';
+		}
+		if (country) {
+			results.nat = getCountryCode(country);
+		}
+		return results;
+	}
+
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN
 
 	teachersList.setListElements();
 	popupAddTeacher.callback = (teacherData) => createTeacher(teacherData);
 	popupAddTeacher.addButtons(...document.querySelectorAll('.menu__button'));
-	filter.start((res) => {
+	filter.start(async (res) => {
 		const opts = createFilterOpts(res);
 		teachersList.applyFilterElements(opts);
+
+		console.log(opts);
+
+		const filterOptions = createQueryOptions(opts);
+		console.log(filterOptions);
+		const resTeacherApi = await teacherApi.getByFilter({
+			page: 1,
+			limit: 10,
+			filterOptions,
+		});
+		console.log(resTeacherApi);
 	});
 	searcher.start((res) => {
 		const opts = createSearchOpts(res);

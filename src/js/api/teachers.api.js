@@ -11,18 +11,44 @@ const RandomUserAPI = new API(API_RANDOM_USER_URL);
 
 class TeachersAPI {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	constructor(seed) {
+	constructor({ seed }) {
 		this.seed = seed;
 	}
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	async getByQuantity(quantity) {
+
+	getPath(options) {
+		const queryString = API.toStringOptions(options);
+		return API_RANDOM_USER_URL + queryString;
+	}
+
+	async getByQuantity({ quantity }) {
 		const options = {
 			page: 1,
 			seed: this.seed,
 			results: quantity,
 		};
+		const result = await RandomUserAPI.get(options);
+		return result;
+	}
 
+	async getPageLimit({ page, limit }) {
+		const options = {
+			page,
+			seed: this.seed,
+			results: limit,
+		};
+		const result = await RandomUserAPI.get(options);
+		return result;
+	}
+
+	async getByFilter({ page, limit, filterOptions = {} }) {
+		const options = {
+			page,
+			results: limit,
+			...filterOptions,
+		};
+		console.log(this.getPath(options));
 		const result = await RandomUserAPI.get(options);
 		return result;
 	}
