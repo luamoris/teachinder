@@ -1,6 +1,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 const Process = require('../process');
+const DomHelper = require('../../helpers/dom.helper');
 const { getHTMLElement } = require('../dom');
 
 const PopupCardTeacher = require('../popup/popupCardTeacher');
@@ -55,6 +56,7 @@ class TeachersList {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	constructor(listId, teachers) {
 		this.teachersElm = getHTMLElement(document, listId, 'id');
+		this.btnMore = DomHelper.getElement({ selector: '.top-teachers ~ .top-teachers__button' });
 		this.teachers = Process.usersFormatting(teachers);
 		// ~~~
 		this.teacherFavoriteList = new TeacherFavoriteList('favoriteTeachersList');
@@ -129,6 +131,10 @@ class TeachersList {
 		this.tableList.setupPage(this.tableList.page.current);
 	}
 
+	addTeachers(teachers) {
+		teachers.forEach((teacher) => this.add(teacher));
+	}
+
 	setListElements() {
 		if (this.listElm) return;
 		this.listElm = this.createTeacherList(this.teachers);
@@ -172,6 +178,22 @@ class TeachersList {
 		this.clear();
 		this.listElm.firstChild && this.teachersElm.appendChild(this.listElm);
 	}
+
+	activeMore(onClickMore) {
+		this.btnMore.addEventListener('click', async () => {
+			this.btnMore.classList.add('inactive');
+			onClickMore()
+				.then((res) => {
+					this.btnMore.classList.remove('inactive');
+					if (!res.ok) {
+						this.btnMore.classList.add('not_work');
+					}
+				});
+		});
+	}
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
