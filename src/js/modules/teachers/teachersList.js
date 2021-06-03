@@ -7,6 +7,7 @@ const { getHTMLElement } = require('../dom');
 const PopupCardTeacher = require('../popup/popupCardTeacher');
 const TeacherFavoriteList = require('./teacherFavoriteList');
 const TeachersTableList = require('./teachersTableList');
+const TeacherChart = require('../chart');
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TEACHERS LIST
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -61,6 +62,7 @@ class TeachersList {
 		// ~~~
 		this.teacherFavoriteList = new TeacherFavoriteList('favoriteTeachersList');
 		this.tableList = new TeachersTableList('statisticsTable');
+		this.chart = new TeacherChart(this.teachers);
 		// ~~~
 		this.listElm = null;
 		this.listFiltered = null;
@@ -105,7 +107,7 @@ class TeachersList {
 	}
 
 	onClickLiElement(teacher) {
-		popupCardTeacher.setTeacherData(teacher);
+		popupCardTeacher.setTeacherData(teacher, teacher.coordinates);
 		popupCardTeacher.favCallback = (isFavorite) => this.onClickFavorite(isFavorite, teacher);
 		popupCardTeacher.init();
 	}
@@ -128,6 +130,7 @@ class TeachersList {
 		this.listElm.appendChild(teacherLiElm);
 		teacherLiElm.onclick = () => this.onClickLiElement(teacher);
 		this.tableList.add(teacher);
+		this.chart.add(teacher);
 		this.tableList.setupPage(this.tableList.page.current);
 	}
 
