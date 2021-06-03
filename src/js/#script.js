@@ -61,7 +61,7 @@
 		_.forEach(data, (value, key) => {
 			if (key === 'age' && data[key]) {
 				res[key] = _.parseInt(value);
-			} else {
+			} else if (data[key]) {
 				res[key] = value;
 			}
 		});
