@@ -1,8 +1,48 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const { getHTMLElement } = require('../dom');
+const Leaflet = require('leaflet');
+const Dayjs = require('dayjs');
+const dayOfYear = require('dayjs/plugin/dayOfYear');
 
+const DomHelper = require('../../helpers/dom.helper');
+const { getHTMLElement } = require('../dom');
 const Popup = require('./popup');
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+let MAP = null;
+let MARKER = null;
+
+function createMap({ latitude, longitude }) {
+	const center = [latitude, longitude];
+	if (MAP) {
+		MAP.setView(center);
+		MARKER.setLatLng(center);
+	} else {
+		MAP = Leaflet.map('personMap', { center, zoom: 11 });
+		Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			minZoom: '15',
+		}).addTo(MAP);
+		MARKER = Leaflet.marker(center, { draggable: true, title: '', opacity: 0.75 });
+		MARKER.addTo(MAP);
+	}
+}
+
+function getDayToBirthday(birthdayData) {
+	Dayjs.extend(dayOfYear);
+	const birthday = Dayjs(birthdayData);
+	const today = Dayjs(new Date());
+
+	const daysFromBirthday = birthday.dayOfYear();
+	const daysFromToday = today.dayOfYear();
+
+	const daysToBirthday = daysFromBirthday > daysFromToday
+		? daysFromBirthday - daysFromToday
+		: birthday.add(today.year() - birthday.year() + 1, 'year').diff(today, 'day');
+
+	return daysToBirthday;
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ POPUP CARD TEACHER
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,6 +75,8 @@ class PopupCardTeacher extends Popup {
 				: this.favContainer.classList.remove('favorite_true');
 			if (this.favCallback) this.favCallback(this.teacher.favorite);
 		};
+		//
+		this.btnMap = DomHelper.getElement({ root: this.popup, type: 'class', selector: 'map__btn' });
 		// ~~~
 		this.attrElms = {
 			map: getHTMLElement(this.popup, `${prefix}map`, 'class'),
@@ -43,6 +85,7 @@ class PopupCardTeacher extends Popup {
 			color: getHTMLElement(this.popup, 'infocard', 'class'),
 		};
 		// ~~~
+		this.birthday = getHTMLElement(this.popup, `${prefix}birthday`, 'class');
 		this.dataElms = {
 			age: getHTMLElement(this.popup, `${prefix}age`, 'class'),
 			gender: getHTMLElement(this.popup, `${prefix}sex`, 'class'),
@@ -61,10 +104,13 @@ class PopupCardTeacher extends Popup {
 	setTeacherData(teacher, mapUrl = null) {
 		this.teacher = teacher;
 		PopupCardTeacher.setDataInElms(this.dataElms, teacher);
-		this.attrElms.map.setAttribute('data-src', mapUrl || 'https://www.google.com/maps');
+		this.btnMap.onclick = () => createMap({ ...mapUrl });
 		this.attrElms.photo.setAttribute('src', teacher.picture_large || './img/person.svg');
 		this.attrElms.color.setAttribute('data-color', teacher.bg_color || '#65A3BE');
 		this.attrElms.mapBox.removeAttribute('open');
+		this.birthday.innerText = teacher.b_date
+			? getDayToBirthday(new Date(teacher.b_date))
+			: 'infinity';
 		teacher.favorite
 			? this.favContainer.classList.add('favorite_true')
 			: this.favContainer.classList.remove('favorite_true');

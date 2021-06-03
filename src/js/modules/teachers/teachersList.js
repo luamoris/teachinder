@@ -105,7 +105,7 @@ class TeachersList {
 	}
 
 	onClickLiElement(teacher) {
-		popupCardTeacher.setTeacherData(teacher);
+		popupCardTeacher.setTeacherData(teacher, teacher.coordinates);
 		popupCardTeacher.favCallback = (isFavorite) => this.onClickFavorite(isFavorite, teacher);
 		popupCardTeacher.init();
 	}
