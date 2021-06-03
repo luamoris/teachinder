@@ -1,3 +1,8 @@
+/* ======================================================= */
+
+const { trim } = require('lodash');
+const _ = require('lodash');
+
 /* =======================================================
 	1. Array of objects
 ========================================================== */
@@ -7,7 +12,7 @@ const getField = (obj, ...args) => args.reduce((el, level) => el && el[level], o
 const createUser = (user, index) => {
 	const get = (...args) => {
 		const res = getField(user, ...args);
-		return res && typeof res !== 'object' ? res : null;
+		return res && !_.isObject(res) ? res : null;
 	};
 	const defaultId = 1000000000;
 	const id = get('id') || `${get('id', 'name') || ''}${get('id', 'value') || ''}`;
@@ -99,7 +104,7 @@ const validIsPhoneNumber = (number) => TEST.phonNumber.test(number);
 function ValidationUser(user) {
 	return validArrStrings([
 		user.full_name, user.gender, user.note, user.state, user.city, user.country,
-	]) && validIsInteger(user.age) && validIsPhoneNumber(user.number) && validIsEmail(user.email);
+	]) && _.isInteger(user.age) && validIsPhoneNumber(user.number) && validIsEmail(user.email);
 }
 
 /* =======================================================
@@ -107,8 +112,12 @@ function ValidationUser(user) {
 ========================================================== */
 
 // Users filtration
-function FilterUsers(users, opts) {
+function FilterUsersOld(users, opts) {
 	return users.filter((user) => Object.keys(opts).every((key) => opts[key] === user[key]));
+}
+
+function FilterUsers(users, opts) {
+	return _.filter(users, opts);
 }
 
 /* =======================================================
@@ -148,7 +157,7 @@ const adaptOptions = (opts) => {
 };
 
 // Sorting an array of objects
-function SortUsers(users, opts) {
+function SortUsersOld(users, opts) {
 	try {
 		const validOpts = adaptOptions(opts);
 		const compare = (method, func, arg1, arg2) => method === 'ASC' ? func(arg1, arg2) : func(arg2, arg1);
@@ -157,6 +166,12 @@ function SortUsers(users, opts) {
 	} catch (error) {
 		console.error(error);
 	}
+}
+
+function SortUsers(users, opts) {
+	const fields = _.map(opts, 'field');
+	const methods = _.map(opts, 'method').map(trim);
+	return _.sortBy(users, fields, methods);
 }
 
 /*
@@ -178,8 +193,12 @@ const checkForCompliance = (user, opts) => {
 	return keys.length > 0 && keys.every((key) => opts[key] === user[key]);
 };
 
-function SearchUser(users, opts) {
+function SearchUserOld(users, opts) {
 	return users.find((user) => checkForCompliance(user, opts)) || null;
+}
+
+function SearchUser(users, opts) {
+	return _.size(opts) ? (_.find(users, opts) || null) : null;
 }
 
 /* =======================================================

@@ -15,6 +15,8 @@
 	const TeachersList = require('./modules/teachers/teachersList');
 	const PopupAddTeacher = require('./modules/popup/popupAddTeacher');
 
+	const _ = require('lodash');
+
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DOM ELEMENTS
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ JS VARIABLES
@@ -56,19 +58,19 @@
 
 	function createSearchOpts(data) {
 		const res = {};
-		Object.keys(data).forEach((field) => {
-			if (field === 'age') {
-				data[field] && (res[field] = parseInt(data[field]));
+		_.forEach(data, (value, key) => {
+			if (key === 'age' && data[key]) {
+				res[key] = _.parseInt(value);
 			} else {
-				data[field] && (res[field] = data[field]);
+				res[key] = value;
 			}
 		});
 		return res;
 	}
 
 	function createTeacher(teacherData) {
-		Object.keys(teacherData).forEach((field) => {
-			teacherData[field] = teacherData[field].trim();
+		_.forEach(teacherData, (value, key) => {
+			teacherData[key] = value.trim();
 		});
 		const today = new Date();
 		const b_day = new Date(teacherData.b_day);
