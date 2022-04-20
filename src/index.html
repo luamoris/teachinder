@@ -14,6 +14,13 @@
 	<meta name="msapplication-tap-highlight" content="no">
 	<title>Teachinder</title>
 
+	<link
+		rel="stylesheet"
+		href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin=""
+	/>
+
 </head>
 
 
@@ -156,6 +163,12 @@
 								</table>
 							</div>
 						</div>
+						<!-- LINE -->
+						<div class="center-line"></div>
+						<!-- PIE CHART -->
+						<div class="piechart">
+							<canvas id="chart"></canvas>
+						</div>
 					</section>
 
 					<!-- FAVORITES -->
@@ -250,7 +263,6 @@
 
 <!-- Shell END -->
 
-
 <!-- MODAL -->
 
 <!-- INFOCARD -->
@@ -305,6 +317,10 @@
 								<h5 class="person__age">18</h5>
 							</div>
 							<div class="person__item">
+								<span class="person-type">through:</span>
+								<h5 class="person__birthday">0</h5>
+							</div>
+							<div class="person__item">
 								<span class="person-type">sex:</span>
 								<h5 class="person__sex">M</h5>
 							</div>
@@ -333,13 +349,13 @@
 							<!-- MAP -->
 							<details class="map">
 								<summary class="map__btn">toggle map</summary>
-								<div class="person__map" data-src="https://">
-									<iframe
+								<div id="personMap" class="person__map" data-src="https://">
+									<!-- <iframe
 										src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d20322.047037054374!2d30.51195293778188!3d50.4549596540008!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce54073a71cb%3A0xbaf9b9c70b1500d3!2z0JrRgNC10YnQsNGC0LjQug!5e0!3m2!1sru!2sua!4v1619036215665!5m2!1sru!2sua"
 										allowfullscreen=""
 										loading="lazy"
 									>
-									</iframe>
+									</iframe> -->
 								</div>
 							</details>
 						</div>
@@ -442,6 +458,14 @@
 
 
 <!-- MODAL END -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script
+	src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+	crossorigin="">
+</script>
 
 
 </body>
